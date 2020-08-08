@@ -5,8 +5,12 @@
  */
 package gui;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -18,6 +22,8 @@ public class JDialogPanelInfo extends JDialog{
     
     private GUIPanelInfo panelInfo;
     
+    private JLabel lbTitulo;
+    
     public JDialogPanelInfo(GUIPrincipal gui, GUIConstantes.TIPO_ACCION tipo) {
         
         this.guiPrincipal = gui;
@@ -26,13 +32,25 @@ public class JDialogPanelInfo extends JDialog{
         setAlwaysOnTop(true);
         setLocationRelativeTo(null);
         
+        JPanel panelTitulo = new JPanel();
+        lbTitulo = new JLabel("TITULO GENERICO");
+        lbTitulo.setHorizontalAlignment(JLabel.CENTER);
+        lbTitulo.setForeground(GUIConstantes.COLOR_PRINCIPAL);
+        lbTitulo.setFont(new Font("TAHOMA", Font.BOLD, 50));
+        panelTitulo.add(lbTitulo);
+        add(panelTitulo, BorderLayout.NORTH);
+        
         panelInfo = new GUIPanelInfo(gui, this, tipo);
-        add(panelInfo);
+        add(panelInfo, BorderLayout.CENTER);
     }
     
     public GUIPanelInfo darPanel(){
         return panelInfo;
     }
     
+    public void cambiarTitulo(String pTexto){
+        pTexto = pTexto.toUpperCase();
+        lbTitulo.setText(pTexto);
+    }
     
 }

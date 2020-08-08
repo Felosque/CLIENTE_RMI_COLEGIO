@@ -97,7 +97,6 @@ public class GUIPanelInfo extends javax.swing.JPanel implements ActionListener{
         jLabel10 = new javax.swing.JLabel();
         jtDireccion = new javax.swing.JTextField();
         imagenPersona = new javax.swing.JLabel();
-        txtTitulo = new javax.swing.JLabel();
         btAccion = new javax.swing.JButton();
         panelCalendario = new javax.swing.JPanel();
 
@@ -106,40 +105,40 @@ public class GUIPanelInfo extends javax.swing.JPanel implements ActionListener{
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Fecha Nacimiento: (Día/Mes/Año)");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 130, 220, 20));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, 220, 20));
 
         jLabel2.setText("Nombres:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 80, 60, 20));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 20, 60, 20));
 
         jLabel3.setText("Apellidos:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 80, 60, 20));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 20, 60, 20));
 
         jtApellido.setEditable(false);
-        jPanel1.add(jtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 100, 180, -1));
+        jPanel1.add(jtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 40, 180, -1));
 
         jtNombre.setEditable(false);
-        jPanel1.add(jtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 100, 180, -1));
+        jPanel1.add(jtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 40, 180, -1));
 
         jLabel5.setText("EPS:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 230, 150, 20));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 170, 150, 20));
 
         jtDNI.setEditable(false);
-        jPanel1.add(jtDNI, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 200, 390, -1));
+        jPanel1.add(jtDNI, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 140, 390, -1));
 
         jLabel6.setText("Factor RH:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 230, 150, 20));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 170, 150, 20));
 
         jtRH.setEditable(false);
-        jPanel1.add(jtRH, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 250, 180, -1));
+        jPanel1.add(jtRH, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 190, 180, -1));
 
         jLabel7.setText("Documento de identificación:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 180, 200, 20));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 120, 200, 20));
 
         jtEps.setEditable(false);
-        jPanel1.add(jtEps, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 250, 180, -1));
+        jPanel1.add(jtEps, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 190, 180, -1));
 
         jLabel8.setText("Telefono:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 280, 150, 20));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 220, 150, 20));
 
         jtTelf.setEditable(false);
         jtTelf.addActionListener(new java.awt.event.ActionListener() {
@@ -147,10 +146,10 @@ public class GUIPanelInfo extends javax.swing.JPanel implements ActionListener{
                 jtTelfActionPerformed(evt);
             }
         });
-        jPanel1.add(jtTelf, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 300, 180, -1));
+        jPanel1.add(jtTelf, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 240, 180, -1));
 
         jLabel9.setText("Correo:");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 280, 150, 20));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 220, 150, 20));
 
         jtCorreo.setEditable(false);
         jtCorreo.addActionListener(new java.awt.event.ActionListener() {
@@ -158,10 +157,10 @@ public class GUIPanelInfo extends javax.swing.JPanel implements ActionListener{
                 jtCorreoActionPerformed(evt);
             }
         });
-        jPanel1.add(jtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 300, 180, -1));
+        jPanel1.add(jtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 240, 180, -1));
 
         jLabel10.setText("Dirección de la casa:");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 340, 150, 20));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 280, 150, 20));
 
         jtDireccion.setEditable(false);
         jtDireccion.addActionListener(new java.awt.event.ActionListener() {
@@ -169,18 +168,14 @@ public class GUIPanelInfo extends javax.swing.JPanel implements ActionListener{
                 jtDireccionActionPerformed(evt);
             }
         });
-        jPanel1.add(jtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 360, 390, -1));
-        jPanel1.add(imagenPersona, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 290, 290));
-
-        txtTitulo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        txtTitulo.setText("REGISTRAR ESTUDIANTE");
-        jPanel1.add(txtTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 800, -1));
+        jPanel1.add(jtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 300, 390, -1));
+        jPanel1.add(imagenPersona, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 290, 290));
 
         btAccion.setText("REGISTRAR ESTUDIANTE");
-        jPanel1.add(btAccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 400, 180, -1));
+        jPanel1.add(btAccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 340, 180, -1));
 
         panelCalendario.setLayout(null);
-        jPanel1.add(panelCalendario, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 150, 390, 20));
+        jPanel1.add(panelCalendario, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 90, 390, 20));
 
         add(jPanel1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
@@ -220,7 +215,6 @@ public class GUIPanelInfo extends javax.swing.JPanel implements ActionListener{
     private javax.swing.JTextField jtRH;
     private javax.swing.JTextField jtTelf;
     private javax.swing.JPanel panelCalendario;
-    private javax.swing.JLabel txtTitulo;
     // End of variables declaration//GEN-END:variables
 
     public void ponerImagen()
@@ -232,19 +226,19 @@ public class GUIPanelInfo extends javax.swing.JPanel implements ActionListener{
     {
         btAccion.setVisible(pEdit);
         if(modo == TIPO_ACCION.CREAR){
-            txtTitulo.setText("Registrar Estudiante");
             btAccion.setText("Registrar Estudiante");
+            dialogoPadre.cambiarTitulo("Registrar Estudiante");
             dialogoPadre.setTitle("Registrar Estudiante");
         }else if(modo == TIPO_ACCION.ACTUALIZAR){
-            txtTitulo.setText("Actualizar Estudiante");
+            dialogoPadre.cambiarTitulo("Actualizar Estudiante");
             btAccion.setText("Actualizar Estudiante");
             dialogoPadre.setTitle("Actualizar Estudiante");
         }else if(modo == TIPO_ACCION.LEER){
-            txtTitulo.setText("Visualizar Estudiante");
+            dialogoPadre.cambiarTitulo("Visualizar Estudiante");
             dialogoPadre.setTitle("Visualizar Estudiante");
         }
         else if(modo == TIPO_ACCION.ELIMINAR){
-            txtTitulo.setText("Borrar Estudiante");
+            dialogoPadre.cambiarTitulo("Borrar Estudiante");
             btAccion.setText("Borrar Estudiante");
             dialogoPadre.setTitle("Borrar Estudiante");
         }

@@ -23,20 +23,18 @@ public class GUIPrincipal extends JFrame implements ActionListener{
     
     private ServicioEstudiante colegio;
     
+    private GUIPanelInicio panelInicio;
+           
+    
     public GUIPrincipal() {
         
         colegio = new ServicioEstudiante();
         
         inicializarMenuBar();
         
-        setTitle("Administración de estudiantes");
-        setVisible(true);
-        setSize(new Dimension(500, 400));
-        setLayout(new BorderLayout());
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setResizable(false);
-        setLocationRelativeTo(null);
-
+        panelInicio = new GUIPanelInicio();
+        add(panelInicio, BorderLayout.CENTER);
+        setSize(new Dimension(500, 401));
     }
     
     public ArrayList<Estudiante> getEstudiantes()
@@ -99,9 +97,9 @@ public class GUIPrincipal extends JFrame implements ActionListener{
          
     private JMenuBar barraMenu;
     
-    private JMenu menuArchivo, menuEstudiante;
+    private JMenu menuArchivo, menuEstudiante, menuAyuda;
     
-    private JMenuItem mnSalir;
+    private JMenuItem mnSalir, mnAyuda;
     private JMenuItem mnEstListar, mnEstCrear, mnEstEliminar, mnEstActualizar, mnEstBuscar;
     
     public void inicializarMenuBar()
@@ -140,13 +138,16 @@ public class GUIPrincipal extends JFrame implements ActionListener{
         mnEstEliminar = new JMenuItem("Eliminar Estudiante");
         mnEstEliminar.addActionListener(this);
         menuEstudiante.add(mnEstEliminar);
+        
+        //Menú ayuda
+        menuAyuda = new JMenu("Ayuda");
+        barraMenu.add(menuAyuda);
+        
+        mnAyuda = new JMenuItem("Acerca de...");
+        mnAyuda.addActionListener(this);
+        menuAyuda.add(mnAyuda);
     }
-    
-    
-    public static void main(String arg[]){
-        new GUIPrincipal();
-    }
-
+   
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == mnSalir){
@@ -188,5 +189,19 @@ public class GUIPrincipal extends JFrame implements ActionListener{
         else if(e.getSource() == mnEstListar){
             this.uiVerLista();
         }
+        else if(e.getSource() == mnAyuda){
+            JOptionPane.showMessageDialog(this,"Desarrollado por:\n\n- Alejandro Luna Miranda\n- Luis Felipe Londoño");
+        }
+    }
+    
+    public static void main(String arg[]){
+        GUIPrincipal ven = new GUIPrincipal();
+        ven.setTitle("Gestión estudiantil");
+        ven.setVisible(true);
+        ven.setSize(new Dimension(500, 400));
+        ven.setLayout(new BorderLayout());
+        ven.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        ven.setResizable(false);
+        ven.setLocationRelativeTo(null);
     }
 }
