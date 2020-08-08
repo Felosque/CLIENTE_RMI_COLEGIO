@@ -19,7 +19,7 @@ public class ServicioEstudiante {
 
     public ServicioEstudiante() {
         estudiantes = new ArrayList<>();
-        LocalDateTime date = LocalDateTime.now();
+        Date date = new Date();
         estudiantes.add(new Estudiante("Alejandro", "Luna", date, "987654321", "A+", "SALUDCOP", "30012324234", "Avenida 49", "alejandro.luna@gmail.com"));
         estudiantes.add(new Estudiante("Luis Felipe", "Londoño Medina", date, "123456789", "O+", "SALUD TOTAL", "2772478", "CALLE 60 A", "felipelondono@gmail.com")); 
     }

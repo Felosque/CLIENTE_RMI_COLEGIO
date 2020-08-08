@@ -23,6 +23,7 @@ public class JDialogListarDatos extends JDialog {
         setTitle("Lista de estudiantes");
         setSize(new Dimension(1000, 400));
         setResizable(false);
+        setLocationRelativeTo(null);
         //setDefaultCloseOperation(EXIT_ON_CLOSE);
         GUIListarDatos panelListar = new GUIListarDatos(gui);
         add(panelListar);

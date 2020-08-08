@@ -5,7 +5,6 @@
  */
 package estructural;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -18,7 +17,7 @@ public class Estudiante {
     
     private String apellidos;
     
-    private LocalDateTime fechaNacimiento;
+    private Date fechaNacimiento;
     
     private String documentoIdentificacion;
     
@@ -34,7 +33,7 @@ public class Estudiante {
     
     private String correo;
 
-    public Estudiante(String nombres, String apellidos, LocalDateTime fechaNacimiento, String documentoIdentificacion, String rH, String eps, String telefonoAcudiente, String direccion, String correo) {
+    public Estudiante(String nombres, String apellidos, Date fechaNacimiento, String documentoIdentificacion, String rH, String eps, String telefonoAcudiente, String direccion, String correo) {
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.fechaNacimiento = fechaNacimiento;
@@ -68,11 +67,11 @@ public class Estudiante {
         this.apellidos = apellidos;
     }
 
-    public LocalDateTime getFechaNacimiento() {
+    public Date getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(LocalDateTime fechaNacimiento) {
+    public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 

@@ -16,19 +16,23 @@ public class JDialogPanelInfo extends JDialog{
 
     private GUIPrincipal guiPrincipal;
     
+    private GUIPanelInfo panelInfo;
+    
     public JDialogPanelInfo(GUIPrincipal gui, GUIConstantes.TIPO_ACCION tipo) {
         
         this.guiPrincipal = gui;
-        
         setSize(new Dimension(820, 500));
         setResizable(false);
         setAlwaysOnTop(true);
+        setLocationRelativeTo(null);
         
-        GUIPanelInfo panelInfo = new GUIPanelInfo(gui, tipo);
+        panelInfo = new GUIPanelInfo(gui, this, tipo);
         add(panelInfo);
     }
     
-    
+    public GUIPanelInfo darPanel(){
+        return panelInfo;
+    }
     
     
 }

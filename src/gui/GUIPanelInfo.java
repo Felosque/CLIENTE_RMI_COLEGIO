@@ -26,18 +26,24 @@ public class GUIPanelInfo extends javax.swing.JPanel implements ActionListener{
     
     private GUIPrincipal guiPrincipal;
     
+    private JDialogPanelInfo dialogoPadre;
+    
     private TIPO_ACCION modo;
     
     private Estudiante estudiante;
     
+    private JDateChooser jdFechaNacimiento;
+    
     //Modo 1: Registrar - Modo 2: Actualizar - Modo 3: Visualizar Modo 4: borrar
-    public GUIPanelInfo(GUIPrincipal pGui, TIPO_ACCION pModo) {
+    public GUIPanelInfo(GUIPrincipal pGui, JDialogPanelInfo padre, TIPO_ACCION pModo) {
         guiPrincipal = pGui;
         modo = pModo;
+        dialogoPadre = padre;
+        
         initComponents();
         ponerImagen();
         
-        JDateChooser jdFechaNacimiento = new JDateChooser();
+        jdFechaNacimiento = new JDateChooser();
         panelCalendario.add(jdFechaNacimiento);
         jdFechaNacimiento.setBounds(0,0, 390, 20);
          
@@ -228,21 +234,26 @@ public class GUIPanelInfo extends javax.swing.JPanel implements ActionListener{
         if(modo == TIPO_ACCION.CREAR){
             txtTitulo.setText("Registrar Estudiante");
             btAccion.setText("Registrar Estudiante");
+            dialogoPadre.setTitle("Registrar Estudiante");
         }else if(modo == TIPO_ACCION.ACTUALIZAR){
             txtTitulo.setText("Actualizar Estudiante");
             btAccion.setText("Actualizar Estudiante");
+            dialogoPadre.setTitle("Actualizar Estudiante");
         }else if(modo == TIPO_ACCION.LEER){
             txtTitulo.setText("Visualizar Estudiante");
+            dialogoPadre.setTitle("Visualizar Estudiante");
         }
         else if(modo == TIPO_ACCION.ELIMINAR){
             txtTitulo.setText("Borrar Estudiante");
             btAccion.setText("Borrar Estudiante");
+            dialogoPadre.setTitle("Borrar Estudiante");
         }
     }
     
     public void habilitarEdicion(boolean pEdit)
     {
         //fECHA
+        jdFechaNacimiento.setEnabled(pEdit);
         jtNombre.setEditable(pEdit);
         jtApellido.setEditable(pEdit);
         jtDNI.setEditable(pEdit);
@@ -257,6 +268,7 @@ public class GUIPanelInfo extends javax.swing.JPanel implements ActionListener{
     {
         //Fecha
         estudiante = pEstudiante;
+        jdFechaNacimiento.setDate(estudiante.getFechaNacimiento());
         jtNombre.setText(pEstudiante.getNombres());
         jtApellido.setText(pEstudiante.getApellidos());
         jtDNI.setText(pEstudiante.getDocumento());
@@ -270,32 +282,33 @@ public class GUIPanelInfo extends javax.swing.JPanel implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         
-        int hora = 0, min = 0;
-        LocalDateTime date = LocalDateTime.now();
-        Estudiante estActual = new Estudiante(jtNombre.getText(), jtApellido.getText(), date, 
+        Estudiante estActual = new Estudiante(jtNombre.getText(), jtApellido.getText(), jdFechaNacimiento.getDate(), 
                 jtDNI.getText(), jtRH.getText(), jtEps.getText(), jtTelf.getText(), jtDireccion.getText(), jtCorreo.getText());
         if(modo == TIPO_ACCION.CREAR){
             if(jtNombre.getText().trim().isEmpty() == true || jtApellido.getText().trim().isEmpty() == true){
-                JOptionPane.showMessageDialog(guiPrincipal, "Tienes que insertar al menos los nombres del usuario");
+                JOptionPane.showMessageDialog(this, "Tienes que insertar al menos los nombres del usuario");
             }
             else{
                 guiPrincipal.registrarEstudiante(estActual);
-                JOptionPane.showMessageDialog(guiPrincipal, "¡Se ha registrado el estudiante correctamente!");
-                guiPrincipal.uiVerLista();
+                JOptionPane.showMessageDialog(this, "¡Se ha registrado el estudiante correctamente!");
+                dialogoPadre.dispose();
+                //guiPrincipal.uiVerLista();
             }
         }
         else if(modo == TIPO_ACCION.ACTUALIZAR){//Actualizarlo
             guiPrincipal.actualizarEstudiante(estudiante.getDocumento(), estActual);
-            JOptionPane.showMessageDialog(guiPrincipal, "¡Se ha actualizado el estudiante correctamente!");
+            JOptionPane.showMessageDialog(this, "¡Se ha actualizado el estudiante correctamente!");
             guiPrincipal.uiVerLista();
+            dialogoPadre.dispose();
         }
         else if(modo == TIPO_ACCION.ELIMINAR){//Actualizarlo
-            int select = JOptionPane.showOptionDialog(guiPrincipal, "¿Está seguro de querer eliminar el estudiante?", "IMPORTANTE", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, 1);
+            int select = JOptionPane.showOptionDialog(this, "¿Está seguro de querer eliminar el estudiante?", "IMPORTANTE", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, 1);
             if(select == 0)
             {
                 guiPrincipal.borrarEstudiante(estudiante.getDocumento());
-                JOptionPane.showMessageDialog(guiPrincipal, "¡Se ha borrado el estudiante correctamente!");
+                JOptionPane.showMessageDialog(this, "¡Se ha borrado el estudiante correctamente!");
                 guiPrincipal.uiVerLista();
+                dialogoPadre.dispose();
             }
         }
     }

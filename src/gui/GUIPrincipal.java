@@ -7,28 +7,19 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.HeadlessException;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import servicios.ServicioEstudiante;
 import estructural.Estudiante;
-import javax.swing.JDialog;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
 
 /**
  *
  * @author felip
  */
-public class GUIPrincipal extends JFrame{
-
-    
-    private GUIPanelAcciones panelAcciones;
-    
-    private GUIPanelInfo panelInformacion;
-    
-    private GUIPanelTitulo panelTitulo;
-    
-    private GUIListarDatos panelGrilla;
-    
+public class GUIPrincipal extends JFrame implements ActionListener{
     
     private ServicioEstudiante colegio;
     
@@ -36,28 +27,16 @@ public class GUIPrincipal extends JFrame{
         
         colegio = new ServicioEstudiante();
         
+        inicializarMenuBar();
         
         setTitle("Administración de estudiantes");
         setVisible(true);
+        setSize(new Dimension(500, 400));
         setLayout(new BorderLayout());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(new Dimension(1000, 600));
-        setSize(new Dimension(1000, 601));
         setResizable(false);
-        
-        panelAcciones = new GUIPanelAcciones(this);
-        
-        panelTitulo = new GUIPanelTitulo("GESTIÓN ESTUDIANTIL");
-        
-        add(panelTitulo, BorderLayout.NORTH);
-        add(panelAcciones, BorderLayout.SOUTH);
-        
-        panelGrilla = new GUIListarDatos(this);
-        add(panelGrilla, BorderLayout.CENTER);
-        
-        setSize(new Dimension(1000, 600));
-        setSize(new Dimension(1000, 601));
-        
+        setLocationRelativeTo(null);
+
     }
     
     public ArrayList<Estudiante> getEstudiantes()
@@ -87,53 +66,127 @@ public class GUIPrincipal extends JFrame{
     
     public void uiVerLista()
     {
-        if(panelGrilla != null) { panelGrilla.setVisible(false); panelGrilla = null; }
-        if(panelInformacion != null) { panelInformacion.setVisible(false); panelInformacion = null; }
-        panelGrilla = new GUIListarDatos(this);
-        add(panelGrilla);
-        repaint();
+        JDialogListarDatos dialogoVerLista = new JDialogListarDatos(this);
+        dialogoVerLista.setVisible(true);
     }
     
     public void uiRegistrarUsuario()
     {
-        if(panelGrilla != null) { panelGrilla.setVisible(false); panelGrilla = null; }
-        if(panelInformacion != null) { panelInformacion.setVisible(false); panelInformacion = null; }
-        panelInformacion = new GUIPanelInfo(this, GUIConstantes.TIPO_ACCION.CREAR);
-        add(panelInformacion);
-        repaint();
+        JDialogPanelInfo agregarEstudiante = new JDialogPanelInfo(this, GUIConstantes.TIPO_ACCION.CREAR);
+        agregarEstudiante.setVisible(true);
     }
     
     public void uiModificarEstudiante(Estudiante pEstudiante)
     {
-        if(panelGrilla != null) { panelGrilla.setVisible(false); panelGrilla = null; }
-        if(panelInformacion != null) { panelInformacion.setVisible(false); panelInformacion = null; }
-        panelInformacion = new GUIPanelInfo(this, GUIConstantes.TIPO_ACCION.ACTUALIZAR);
-        panelInformacion.refrescarInfo(pEstudiante);
-        add(panelInformacion);
-        repaint();
+        JDialogPanelInfo actualizarEstudiante = new JDialogPanelInfo(this, GUIConstantes.TIPO_ACCION.ACTUALIZAR);
+        actualizarEstudiante.darPanel().refrescarInfo(pEstudiante);
+        actualizarEstudiante.setVisible(true);
     }
     
     public void uiVisualizarEstudiante(Estudiante pEstudiante)
     {
-        if(panelGrilla != null) { panelGrilla.setVisible(false); panelGrilla = null; }
-        if(panelInformacion != null) { panelInformacion.setVisible(false); panelInformacion = null; }
-        panelInformacion = new GUIPanelInfo(this, GUIConstantes.TIPO_ACCION.LEER);
-        panelInformacion.refrescarInfo(pEstudiante);
-        add(panelInformacion);
-        repaint();
+        JDialogPanelInfo verEstudiante = new JDialogPanelInfo(this, GUIConstantes.TIPO_ACCION.LEER);
+        verEstudiante.darPanel().refrescarInfo(pEstudiante);
+        verEstudiante.setVisible(true);
     }
     
     public void uiBorrarEstudiante(Estudiante pEstudiante)      
     {
-        if(panelGrilla != null) { panelGrilla.setVisible(false); panelGrilla = null; }
-        if(panelInformacion != null) { panelInformacion.setVisible(false); panelInformacion = null; }
-        panelInformacion = new GUIPanelInfo(this, GUIConstantes.TIPO_ACCION.ELIMINAR);
-        panelInformacion.refrescarInfo(pEstudiante);
-        add(panelInformacion);
-        repaint();
+        JDialogPanelInfo eliminarEstudiante = new JDialogPanelInfo(this, GUIConstantes.TIPO_ACCION.ELIMINAR);
+        eliminarEstudiante.darPanel().refrescarInfo(pEstudiante);
+        eliminarEstudiante.setVisible(true);
     }
          
+    private JMenuBar barraMenu;
+    
+    private JMenu menuArchivo, menuEstudiante;
+    
+    private JMenuItem mnSalir;
+    private JMenuItem mnEstListar, mnEstCrear, mnEstEliminar, mnEstActualizar, mnEstBuscar;
+    
+    public void inicializarMenuBar()
+    {
+        barraMenu = new JMenuBar();
+        setJMenuBar(barraMenu);
+        
+        //Menu de archivo
+        menuArchivo = new JMenu("Archivo");
+        barraMenu.add(menuArchivo);
+        
+        mnSalir = new JMenuItem("Salir");
+        mnSalir.addActionListener(this);
+        menuArchivo.add(mnSalir);
+        
+        //Menu de Estudiante
+        menuEstudiante = new JMenu("Estudiante");
+        barraMenu.add(menuEstudiante);
+        
+        mnEstListar = new JMenuItem("Listar Estudiantes");
+        mnEstListar.addActionListener(this);
+        menuEstudiante.add(mnEstListar);
+        
+        mnEstCrear = new JMenuItem("Agregar Estudiante");
+        mnEstCrear.addActionListener(this);
+        menuEstudiante.add(mnEstCrear);
+        
+        mnEstBuscar = new JMenuItem("Buscar Estudiante");
+        mnEstBuscar.addActionListener(this);
+        menuEstudiante.add(mnEstBuscar);
+                
+        mnEstActualizar = new JMenuItem("Actualizar Estudiante");
+        mnEstActualizar.addActionListener(this);
+        menuEstudiante.add(mnEstActualizar);
+        
+        mnEstEliminar = new JMenuItem("Eliminar Estudiante");
+        mnEstEliminar.addActionListener(this);
+        menuEstudiante.add(mnEstEliminar);
+    }
+    
+    
     public static void main(String arg[]){
         new GUIPrincipal();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == mnSalir){
+            System.exit(0);
+        }
+        else if(e.getSource() == mnEstBuscar){
+            String identificacion = JOptionPane.showInputDialog(this, "Digite el numero de identificación del estudiante:");
+            Estudiante estudiante = this.buscarEstudiante(identificacion);
+            if(estudiante != null){
+                this.uiVisualizarEstudiante(estudiante);
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "El estudiante no se ha encontrado en la base de datos.");
+            }
+        }
+        else if(e.getSource() == mnEstCrear){
+            this.uiRegistrarUsuario();
+        }
+        else if(e.getSource() == mnEstEliminar){
+            String identificacion = JOptionPane.showInputDialog(this, "Digite el numero de identificación del estudiante:");
+            Estudiante estudiante = this.buscarEstudiante(identificacion);
+            if(estudiante != null){
+                this.uiBorrarEstudiante(estudiante);
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "El estudiante no se ha encontrado en la base de datos.");
+            }
+        }
+        else if(e.getSource() == mnEstActualizar){
+            String identificacion = JOptionPane.showInputDialog(this, "Digite el numero de identificación del estudiante que desea actualizar:");
+            Estudiante estudiante = this.buscarEstudiante(identificacion);
+            if(estudiante != null){
+                this.uiModificarEstudiante(estudiante);
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "El estudiante no se ha encontrado en la base de datos.");
+            }
+        }
+        else if(e.getSource() == mnEstListar){
+            this.uiVerLista();
+        }
     }
 }
