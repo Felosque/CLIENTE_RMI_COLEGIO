@@ -5,8 +5,12 @@
  */
 package gui;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -14,19 +18,27 @@ import javax.swing.JDialog;
  */
 public class JDialogListarDatos extends JDialog {
 
-    GUIPrincipal guiPrincipal;
+    private JLabel lbTitulo;
     
     public JDialogListarDatos(GUIPrincipal gui) {
+
         
-        guiPrincipal = gui;
-        
-        setTitle("Lista de estudiantes");
+        setTitle("Gestión Estudiantil - Lista de estudiantes");
         setSize(new Dimension(1000, 400));
         setResizable(false);
         setLocationRelativeTo(null);
-        //setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        JPanel panelTitulo = new JPanel();
+        lbTitulo = new JLabel("LISTA DE ESTUDIANTES");
+        lbTitulo.setHorizontalAlignment(JLabel.CENTER);
+        lbTitulo.setForeground(GUIConstantes.COLOR_PRINCIPAL);
+        lbTitulo.setFont(new Font("TAHOMA", Font.BOLD, 50));
+        panelTitulo.add(lbTitulo);
+        add(panelTitulo, BorderLayout.NORTH);
+        
+        
         GUIListarDatos panelListar = new GUIListarDatos(gui);
-        add(panelListar);
+        add(panelListar, BorderLayout.CENTER);
         
     }
     

@@ -228,19 +228,19 @@ public class GUIPanelInfo extends javax.swing.JPanel implements ActionListener{
         if(modo == TIPO_ACCION.CREAR){
             btAccion.setText("Registrar Estudiante");
             dialogoPadre.cambiarTitulo("Registrar Estudiante");
-            dialogoPadre.setTitle("Registrar Estudiante");
+            dialogoPadre.setTitle("Gestión Estudiantil - Registrar Estudiante");
         }else if(modo == TIPO_ACCION.ACTUALIZAR){
             dialogoPadre.cambiarTitulo("Actualizar Estudiante");
             btAccion.setText("Actualizar Estudiante");
-            dialogoPadre.setTitle("Actualizar Estudiante");
+            dialogoPadre.setTitle("Gestión Estudiantil - Actualizar Estudiante");
         }else if(modo == TIPO_ACCION.LEER){
             dialogoPadre.cambiarTitulo("Visualizar Estudiante");
-            dialogoPadre.setTitle("Visualizar Estudiante");
+            dialogoPadre.setTitle("Gestión Estudiantil - Visualizar Estudiante");
         }
         else if(modo == TIPO_ACCION.ELIMINAR){
             dialogoPadre.cambiarTitulo("Borrar Estudiante");
             btAccion.setText("Borrar Estudiante");
-            dialogoPadre.setTitle("Borrar Estudiante");
+            dialogoPadre.setTitle("Gestión Estudiantil - Borrar Estudiante");
         }
     }
     

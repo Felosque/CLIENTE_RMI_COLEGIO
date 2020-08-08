@@ -29,7 +29,7 @@ public class JDialogPanelInfo extends JDialog{
         this.guiPrincipal = gui;
         setSize(new Dimension(820, 500));
         setResizable(false);
-        setAlwaysOnTop(true);
+        //setAlwaysOnTop(true);
         setLocationRelativeTo(null);
         
         JPanel panelTitulo = new JPanel();
