@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import servicios.ServicioEstudiante;
 import estructural.Estudiante;
+import javax.swing.JDialog;
 
 /**
  *
@@ -27,6 +28,7 @@ public class GUIPrincipal extends JFrame{
     private GUIPanelTitulo panelTitulo;
     
     private GUIListarDatos panelGrilla;
+    
     
     private ServicioEstudiante colegio;
     
@@ -96,7 +98,7 @@ public class GUIPrincipal extends JFrame{
     {
         if(panelGrilla != null) { panelGrilla.setVisible(false); panelGrilla = null; }
         if(panelInformacion != null) { panelInformacion.setVisible(false); panelInformacion = null; }
-        panelInformacion = new GUIPanelInfo(this, 1);
+        panelInformacion = new GUIPanelInfo(this, GUIConstantes.TIPO_ACCION.CREAR);
         add(panelInformacion);
         repaint();
     }
@@ -105,7 +107,7 @@ public class GUIPrincipal extends JFrame{
     {
         if(panelGrilla != null) { panelGrilla.setVisible(false); panelGrilla = null; }
         if(panelInformacion != null) { panelInformacion.setVisible(false); panelInformacion = null; }
-        panelInformacion = new GUIPanelInfo(this, 2);
+        panelInformacion = new GUIPanelInfo(this, GUIConstantes.TIPO_ACCION.ACTUALIZAR);
         panelInformacion.refrescarInfo(pEstudiante);
         add(panelInformacion);
         repaint();
@@ -115,7 +117,7 @@ public class GUIPrincipal extends JFrame{
     {
         if(panelGrilla != null) { panelGrilla.setVisible(false); panelGrilla = null; }
         if(panelInformacion != null) { panelInformacion.setVisible(false); panelInformacion = null; }
-        panelInformacion = new GUIPanelInfo(this, 3);
+        panelInformacion = new GUIPanelInfo(this, GUIConstantes.TIPO_ACCION.LEER);
         panelInformacion.refrescarInfo(pEstudiante);
         add(panelInformacion);
         repaint();
@@ -125,14 +127,12 @@ public class GUIPrincipal extends JFrame{
     {
         if(panelGrilla != null) { panelGrilla.setVisible(false); panelGrilla = null; }
         if(panelInformacion != null) { panelInformacion.setVisible(false); panelInformacion = null; }
-        panelInformacion = new GUIPanelInfo(this, 4);
+        panelInformacion = new GUIPanelInfo(this, GUIConstantes.TIPO_ACCION.ELIMINAR);
         panelInformacion.refrescarInfo(pEstudiante);
         add(panelInformacion);
         repaint();
     }
          
-            
-
     public static void main(String arg[]){
         new GUIPrincipal();
     }

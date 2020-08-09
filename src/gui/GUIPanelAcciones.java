@@ -80,20 +80,26 @@ public class GUIPanelAcciones extends JPanel implements ActionListener{
             String identificacion = JOptionPane.showInputDialog(guiPrincipal, "Digite el numero de identificación del estudiante que desea actualizar:");
             Estudiante estudiante = guiPrincipal.buscarEstudiante(identificacion);
             if(estudiante != null){
-                guiPrincipal.uiModificarEstudiante(estudiante);
+                //guiPrincipal.uiModificarEstudiante(estudiante);
+                JDialogPanelInfo actualizarEstudiante = new JDialogPanelInfo(guiPrincipal, GUIConstantes.TIPO_ACCION.ACTUALIZAR);
+                actualizarEstudiante.setVisible(true);
             }
             else{
                 JOptionPane.showMessageDialog(guiPrincipal, "El estudiante no se ha encontrado en la base de datos.");
             }
         }
         else if(e.getActionCommand().equals(btAgregarEstudiante.getActionCommand())){
-            guiPrincipal.uiRegistrarUsuario();
+            //guiPrincipal.uiRegistrarUsuario();
+            JDialogPanelInfo agregarEstudiante = new JDialogPanelInfo(guiPrincipal, GUIConstantes.TIPO_ACCION.CREAR);
+            agregarEstudiante.setVisible(true);
         }
         else if(e.getActionCommand().equals(btBorrarEstudiante.getActionCommand())){
             String identificacion = JOptionPane.showInputDialog(guiPrincipal, "Digite el numero de identificación del estudiante:");
             Estudiante estudiante = guiPrincipal.buscarEstudiante(identificacion);
             if(estudiante != null){
-                guiPrincipal.uiBorrarEstudiante(estudiante);
+                //guiPrincipal.uiBorrarEstudiante(estudiante);
+                JDialogPanelInfo eliminarEstudiante = new JDialogPanelInfo(guiPrincipal, GUIConstantes.TIPO_ACCION.ELIMINAR);
+                eliminarEstudiante.setVisible(true);
             }
             else{
                 JOptionPane.showMessageDialog(guiPrincipal, "El estudiante no se ha encontrado en la base de datos.");
@@ -103,7 +109,9 @@ public class GUIPanelAcciones extends JPanel implements ActionListener{
             String identificacion = JOptionPane.showInputDialog(guiPrincipal, "Digite el numero de identificación del estudiante:");
             Estudiante estudiante = guiPrincipal.buscarEstudiante(identificacion);
             if(estudiante != null){
-                guiPrincipal.uiVisualizarEstudiante(estudiante);
+                //guiPrincipal.uiVisualizarEstudiante(estudiante);
+                JDialogPanelInfo verEstudiante = new JDialogPanelInfo(guiPrincipal, GUIConstantes.TIPO_ACCION.LEER);
+                verEstudiante.setVisible(true);
             }
             else{
                 JOptionPane.showMessageDialog(guiPrincipal, "El estudiante no se ha encontrado en la base de datos.");
@@ -111,7 +119,9 @@ public class GUIPanelAcciones extends JPanel implements ActionListener{
                 
         }
         else if(e.getActionCommand().equals(btListarEstudiantes.getActionCommand())){
-            guiPrincipal.uiVerLista();
+            //guiPrincipal.uiVerLista();
+            JDialogListarDatos dig = new JDialogListarDatos(guiPrincipal);
+            dig.setVisible(true);
         }
         
     }
