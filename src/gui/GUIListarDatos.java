@@ -27,15 +27,13 @@ public class GUIListarDatos extends JPanel{
     public GUIListarDatos(GUIPrincipal gui) {
         
         this.principal = gui;
-        CrearTabla(principal.getEstudiantes());
+        crearTabla(principal.getEstudiantes());
         this.setBackground(new Color(0, 0, 0));
         setLayout(null);
     }
     
     
-    
-    
-    public void CrearTabla(ArrayList<Estudiante> est)
+    public void crearTabla(ArrayList<Estudiante> est)
     {
         Vector columnas = new Vector();
         columnas.add("Nombres");
@@ -45,7 +43,7 @@ public class GUIListarDatos extends JPanel{
         columnas.add("F. Nacimiento");
         columnas.add("Dirección");
         columnas.add("Factor RH");
-        columnas.add("Telefono");
+        columnas.add("Teléfono");
         
         Vector filas = new Vector();
         

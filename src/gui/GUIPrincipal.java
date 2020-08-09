@@ -159,12 +159,14 @@ public class GUIPrincipal extends JFrame implements ActionListener{
         }
         else if(e.getSource() == mnEstBuscar){
             String identificacion = JOptionPane.showInputDialog(this, "Digite el numero de identificación del estudiante:");
-            Estudiante estudiante = this.buscarEstudiante(identificacion);
-            if(estudiante != null){
-                this.uiVisualizarEstudiante(estudiante);
-            }
-            else{
-                JOptionPane.showMessageDialog(this, "El estudiante no se ha encontrado en la base de datos.");
+            if(identificacion != null){
+                Estudiante estudiante = this.buscarEstudiante(identificacion);
+                if(estudiante != null){
+                    this.uiVisualizarEstudiante(estudiante);
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "El estudiante no se ha encontrado en la base de datos.");
+                }
             }
         }
         else if(e.getSource() == mnEstCrear){
@@ -172,29 +174,33 @@ public class GUIPrincipal extends JFrame implements ActionListener{
         }
         else if(e.getSource() == mnEstEliminar){
             String identificacion = JOptionPane.showInputDialog(this, "Digite el numero de identificación del estudiante:");
-            Estudiante estudiante = this.buscarEstudiante(identificacion);
-            if(estudiante != null){
-                this.uiBorrarEstudiante(estudiante);
-            }
-            else{
-                JOptionPane.showMessageDialog(this, "El estudiante no se ha encontrado en la base de datos.");
+            if(identificacion != null){
+                Estudiante estudiante = this.buscarEstudiante(identificacion);
+                if(estudiante != null){
+                    this.uiBorrarEstudiante(estudiante);
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "El estudiante no se ha encontrado en la base de datos.");
+                }
             }
         }
         else if(e.getSource() == mnEstActualizar){
             String identificacion = JOptionPane.showInputDialog(this, "Digite el numero de identificación del estudiante que desea actualizar:");
-            Estudiante estudiante = this.buscarEstudiante(identificacion);
-            if(estudiante != null){
-                this.uiModificarEstudiante(estudiante);
-            }
-            else{
-                JOptionPane.showMessageDialog(this, "El estudiante no se ha encontrado en la base de datos.");
+            if(identificacion != null){
+                Estudiante estudiante = this.buscarEstudiante(identificacion);
+                if(estudiante != null){
+                    this.uiModificarEstudiante(estudiante);
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "El estudiante no se ha encontrado en la base de datos.");
+                }
             }
         }
         else if(e.getSource() == mnEstListar){
             this.uiVerLista();
         }
         else if(e.getSource() == mnAyuda){
-            JOptionPane.showMessageDialog(this,"Desarrollado por:\n\n- Alejandro Luna Miranda\n- Luis Felipe Londoño");
+            JOptionPane.showMessageDialog(this,"Desarrollado por:\n\n- Alejandro Luna Miranda\n- Luis Felipe Londoño\n\n\tUNIVERSIDAD DE IBAGUÉ\n\t\t©©©©©© 2020 ©©©©©©");
         }
     }
     

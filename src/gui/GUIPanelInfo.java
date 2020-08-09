@@ -6,6 +6,7 @@
 package gui;
 
 import com.toedter.calendar.JDateChooser;
+import constantes.ColegioConstantes;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
@@ -13,6 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import estructural.Estudiante;
 import gui.GUIConstantes.TIPO_ACCION;
+import java.awt.Color;
 import java.util.Date;
 
 /**
@@ -47,6 +49,7 @@ public class GUIPanelInfo extends javax.swing.JPanel implements ActionListener{
         jdFechaNacimiento = new JDateChooser();
         panelCalendario.add(jdFechaNacimiento);
         jdFechaNacimiento.setBounds(0,0, 390, 20);
+        jdFechaNacimiento.setForeground(new Color(0, 0, 0));
          
         if(pModo == TIPO_ACCION.CREAR){
             habilitarEdicion(true);
@@ -138,7 +141,7 @@ public class GUIPanelInfo extends javax.swing.JPanel implements ActionListener{
         jtEps.setEditable(false);
         jPanel1.add(jtEps, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 190, 180, -1));
 
-        jLabel8.setText("Telefono:");
+        jLabel8.setText("Teléfono:");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 220, 150, 20));
 
         jtTelf.setEditable(false);
@@ -299,7 +302,7 @@ public class GUIPanelInfo extends javax.swing.JPanel implements ActionListener{
         
         try{
             Estudiante estActual = crearEstudiante();
-            
+            System.out.println(""+ ColegioConstantes.TIPO_RH.A.name());
             if(modo == TIPO_ACCION.CREAR){
                 guiPrincipal.registrarEstudiante(estActual);
                 JOptionPane.showMessageDialog(this, "¡Se ha registrado el estudiante correctamente!");
@@ -322,7 +325,7 @@ public class GUIPanelInfo extends javax.swing.JPanel implements ActionListener{
             }
             
         }catch(Exception ex){
-            JOptionPane.showMessageDialog(this, ex.getMessage());
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "ATENCIÓN", JOptionPane.ERROR_MESSAGE);
         }
 
     }
