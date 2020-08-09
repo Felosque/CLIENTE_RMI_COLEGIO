@@ -158,7 +158,7 @@ public class GUIPrincipal extends JFrame implements ActionListener{
             System.exit(0);
         }
         else if(e.getSource() == mnEstBuscar){
-            String identificacion = JOptionPane.showInputDialog(this, "Digite el numero de identificación del estudiante:");
+            String identificacion = JOptionPane.showInputDialog(this, "Digite el numero de identificación del estudiante que desea buscar:", "Buscar Estudiante", JOptionPane.WARNING_MESSAGE);
             if(identificacion != null){
                 Estudiante estudiante = this.buscarEstudiante(identificacion);
                 if(estudiante != null){
@@ -173,7 +173,7 @@ public class GUIPrincipal extends JFrame implements ActionListener{
             this.uiRegistrarUsuario();
         }
         else if(e.getSource() == mnEstEliminar){
-            String identificacion = JOptionPane.showInputDialog(this, "Digite el numero de identificación del estudiante:");
+            String identificacion = JOptionPane.showInputDialog(this, "Digite el numero de identificación del estudiante que desea eliminar:", "Eliminar Estudiante", JOptionPane.WARNING_MESSAGE);
             if(identificacion != null){
                 Estudiante estudiante = this.buscarEstudiante(identificacion);
                 if(estudiante != null){
@@ -185,7 +185,7 @@ public class GUIPrincipal extends JFrame implements ActionListener{
             }
         }
         else if(e.getSource() == mnEstActualizar){
-            String identificacion = JOptionPane.showInputDialog(this, "Digite el numero de identificación del estudiante que desea actualizar:");
+            String identificacion = JOptionPane.showInputDialog(this, "Digite el numero de identificación del estudiante que desea actualizar:", "Actualizar Estudiante", JOptionPane.WARNING_MESSAGE);
             if(identificacion != null){
                 Estudiante estudiante = this.buscarEstudiante(identificacion);
                 if(estudiante != null){

@@ -5,8 +5,11 @@
  */
 package estructural;
 
+import constantes.ColegioConstantes;
+import static constantes.ColegioConstantes.EDAD_MINIMA_REGISTRO;
 import static constantes.ColegioConstantes.isEmailValid;
 import static constantes.ColegioConstantes.isNumeric;
+import static constantes.ColegioConstantes.sumarRestarAnosDate;
 import java.util.Date;
 
 /**
@@ -81,8 +84,8 @@ public class Estudiante {
         if(pFechaN == null){
             throw new Exception("¡Debe seleccionar una fecha de nacimiento valida!");
         }
-        if(pFechaN.after(new Date())){
-            throw new Exception("¡No se puede establecer una fecha mayor al día de hoy!");
+        if(pFechaN.after(sumarRestarAnosDate(new Date(), -EDAD_MINIMA_REGISTRO))){
+            throw new Exception("¡No se puede matricular un estudiante menor a 5 años!\nVerifique la fecha de nacimiento.");
         }
         this.fechaNacimiento = pFechaN;
     }

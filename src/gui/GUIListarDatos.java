@@ -62,6 +62,7 @@ public class GUIListarDatos extends JPanel{
         
         JTable tbl = new JTable(filas,columnas);
         tbl.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tbl.setEnabled(false);
         JScrollPane scroll =new JScrollPane(tbl);
         //scroll.setSize(900, 400);
         tbl.setRowHeight(30);

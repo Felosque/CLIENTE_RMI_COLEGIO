@@ -6,6 +6,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+import static java.awt.Dialog.ModalityType.TOOLKIT_MODAL;
 import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.JDialog;
@@ -22,7 +23,8 @@ public class JDialogListarDatos extends JDialog {
     
     public JDialogListarDatos(GUIPrincipal gui) {
 
-        
+        //super(null, TOOLKIT_MODAL);
+        //setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("Gestión Estudiantil - Lista de estudiantes");
         setSize(new Dimension(1000, 500));
         setResizable(false);
