@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import estructural.Estudiante;
 import gui.GUIConstantes.TIPO_ACCION;
+import java.util.Date;
 
 /**
  *
@@ -273,38 +274,57 @@ public class GUIPanelInfo extends javax.swing.JPanel implements ActionListener{
         jtTelf.setText(pEstudiante.getTelefono());
     }
 
+    public Estudiante crearEstudiante() throws Exception
+    {
+        Estudiante estudianteCreado = new Estudiante();
+        try{
+            estudianteCreado.setNombres(jtNombre.getText().trim());
+            estudianteCreado.setApellidos(jtApellido.getText().trim());
+            estudianteCreado.setFechaNacimiento(jdFechaNacimiento.getDate());
+            estudianteCreado.setDocIdentificacion(jtDNI.getText().trim());
+            estudianteCreado.setEps(jtEps.getText().trim());
+            estudianteCreado.setrH(jtRH.getText().trim());
+            estudianteCreado.setTelefono(jtTelf.getText().trim());
+            estudianteCreado.setCorreo(jtCorreo.getText().trim());
+            estudianteCreado.setDireccion(jtDireccion.getText().trim());
+        }catch(Exception e){
+            throw new Exception(e.getMessage());
+        }
+        return estudianteCreado;
+    }
+    
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         
-        Estudiante estActual = new Estudiante(jtNombre.getText(), jtApellido.getText(), jdFechaNacimiento.getDate(), 
-                jtDNI.getText(), jtRH.getText(), jtEps.getText(), jtTelf.getText(), jtDireccion.getText(), jtCorreo.getText());
-        if(modo == TIPO_ACCION.CREAR){
-            if(jtNombre.getText().trim().isEmpty() == true || jtApellido.getText().trim().isEmpty() == true){
-                JOptionPane.showMessageDialog(this, "Tienes que insertar al menos los nombres del usuario");
-            }
-            else{
+        try{
+            Estudiante estActual = crearEstudiante();
+            
+            if(modo == TIPO_ACCION.CREAR){
                 guiPrincipal.registrarEstudiante(estActual);
                 JOptionPane.showMessageDialog(this, "¡Se ha registrado el estudiante correctamente!");
                 dialogoPadre.dispose();
-                //guiPrincipal.uiVerLista();
             }
-        }
-        else if(modo == TIPO_ACCION.ACTUALIZAR){//Actualizarlo
-            guiPrincipal.actualizarEstudiante(estudiante.getDocumento(), estActual);
-            JOptionPane.showMessageDialog(this, "¡Se ha actualizado el estudiante correctamente!");
-            guiPrincipal.uiVerLista();
-            dialogoPadre.dispose();
-        }
-        else if(modo == TIPO_ACCION.ELIMINAR){//Actualizarlo
-            int select = JOptionPane.showOptionDialog(this, "¿Está seguro de querer eliminar el estudiante?", "IMPORTANTE", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, 1);
-            if(select == 0)
-            {
-                guiPrincipal.borrarEstudiante(estudiante.getDocumento());
-                JOptionPane.showMessageDialog(this, "¡Se ha borrado el estudiante correctamente!");
+            else if(modo == TIPO_ACCION.ACTUALIZAR){//Actualizarlo
+                guiPrincipal.actualizarEstudiante(estudiante.getDocumento(), estActual);
+                JOptionPane.showMessageDialog(this, "¡Se ha actualizado el estudiante correctamente!");
                 guiPrincipal.uiVerLista();
                 dialogoPadre.dispose();
             }
+            else if(modo == TIPO_ACCION.ELIMINAR){//Actualizarlo
+                int select = JOptionPane.showOptionDialog(this, "¿Está seguro de querer eliminar el estudiante?", "IMPORTANTE", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, 1);
+                if(select == 0){
+                    guiPrincipal.borrarEstudiante(estudiante.getDocumento());
+                    JOptionPane.showMessageDialog(this, "¡Se ha borrado el estudiante correctamente!");
+                    guiPrincipal.uiVerLista();
+                    dialogoPadre.dispose();
+                }
+            }
+            
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(this, ex.getMessage());
         }
+
     }
     
 }

@@ -5,6 +5,8 @@
  */
 package estructural;
 
+import static constantes.ColegioConstantes.isEmailValid;
+import static constantes.ColegioConstantes.isNumeric;
 import java.util.Date;
 
 /**
@@ -44,10 +46,8 @@ public class Estudiante {
         this.direccion = direccion;
         this.correo = correo;
     }
-
-    public Estudiante(String nombres, String apellidos) {
-        this.nombres = nombres;
-        this.apellidos = apellidos;
+    
+    public Estudiante() {
     }
     
     
@@ -55,7 +55,10 @@ public class Estudiante {
         return nombres;
     }
 
-    public void setNombres(String nombres) {
+    public void setNombres(String nombres) throws Exception {
+        if(nombres == null || nombres.isEmpty()){
+            throw new Exception("¡Los nombres no pueden estar vacios!");
+        }
         this.nombres = nombres;
     }
 
@@ -63,31 +66,49 @@ public class Estudiante {
         return apellidos;
     }
 
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
+    public void setApellidos(String pApellidos) throws Exception {
+        if(pApellidos == null || pApellidos.isEmpty()){
+            throw new Exception("¡Los apellidos no pueden estar vacios!");
+        }
+        this.apellidos = pApellidos;
     }
 
     public Date getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
+    public void setFechaNacimiento(Date pFechaN) throws Exception {
+        if(pFechaN == null){
+            throw new Exception("¡Debe seleccionar una fecha de nacimiento valida!");
+        }
+        if(pFechaN.after(new Date())){
+            throw new Exception("¡No se puede establecer una fecha mayor al día de hoy!");
+        }
+        this.fechaNacimiento = pFechaN;
     }
 
     public String getDocumento() {
         return documentoIdentificacion;
     }
 
-    public void setDocumentoIdentificacion(String documentoIdentificacion) {
-        this.documentoIdentificacion = documentoIdentificacion;
+    public void setDocIdentificacion(String docIdent) throws Exception{
+        if(docIdent == null || docIdent.isEmpty()){
+            throw new Exception("¡El documento de identificación no pueden estar vacio!");
+        }
+        if(!isNumeric(docIdent)){
+            throw new Exception("¡Solo puedes digitar numeros en el documento de identificación!");
+        }
+        this.documentoIdentificacion = docIdent;
     }
 
     public String getrH() {
         return rH;
     }
 
-    public void setrH(String rH) {
+    public void setrH(String rH) throws Exception {
+        if(rH == null || rH.isEmpty()){
+            throw new Exception("¡El RH no puede estar vacio!");
+        }
         this.rH = rH;
     }
 
@@ -95,7 +116,10 @@ public class Estudiante {
         return eps;
     }
 
-    public void setEps(String eps) {
+    public void setEps(String eps) throws Exception {
+        if(eps == null || eps.isEmpty()){
+            throw new Exception("¡La EPS no puede estar vacia!");
+        }
         this.eps = eps;
     }
 
@@ -103,7 +127,10 @@ public class Estudiante {
         return acudiente;
     }
 
-    public void setAcudiente(String acudiente) {
+    public void setAcudiente(String acudiente) throws Exception {
+        if(acudiente == null || acudiente.isEmpty()){
+            throw new Exception("¡El acudiente no puede estar vacio!");
+        }
         this.acudiente = acudiente;
     }
 
@@ -111,15 +138,24 @@ public class Estudiante {
         return telefono;
     }
 
-    public void setTelefono(String telefonoAcudiente) {
-        this.telefono = telefonoAcudiente;
+    public void setTelefono(String pTelefono) throws Exception {
+        if(pTelefono == null || pTelefono.isEmpty()){
+            throw new Exception("¡El teléfono no puede estar vacio!");
+        }
+        if(!isNumeric(pTelefono)){
+            throw new Exception("¡Solo puedes digitar numeros en el número de telefono!");
+        }
+        this.telefono = pTelefono;
     }
 
     public String getDireccion() {
         return direccion;
     }
 
-    public void setDireccion(String direccion) {
+    public void setDireccion(String direccion) throws Exception {
+        if(direccion == null || direccion.isEmpty()){
+            throw new Exception("¡La dirección no puede estar vacia!");
+        }
         this.direccion = direccion;
     }
 
@@ -127,22 +163,35 @@ public class Estudiante {
         return correo;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setCorreo(String correo) throws Exception {
+        if(correo == null || correo.isEmpty()){
+            this.correo = "NO REGISTRADO";
+        }else{
+            if(!isEmailValid(correo)){
+                throw new Exception("¡La dirección de correo no es valida!");
+            }
+            this.correo = correo;
+        }
     }
     
-    public void actualizarTodaInformacion(Estudiante pEstudiante)
+    public void actualizarTodaInformacion(Estudiante pEstudiante) throws Exception
     {
-        this.nombres = pEstudiante.getNombres();
-        this.apellidos = pEstudiante.getApellidos();
-        this.correo = pEstudiante.getCorreo();
-        this.acudiente = pEstudiante.getAcudiente();
-        this.direccion = pEstudiante.getDireccion();
-        this.documentoIdentificacion = pEstudiante.getDocumento();
-        this.eps = pEstudiante.getEps();
-        this.fechaNacimiento = pEstudiante.getFechaNacimiento();
-        this.rH = pEstudiante.getrH();
-        this.telefono = pEstudiante.getTelefono();
+        try
+        {
+            this.setNombres(pEstudiante.getNombres());
+            this.setApellidos(pEstudiante.getApellidos());
+            this.setCorreo(pEstudiante.getCorreo());
+            //this.setAcudiente(pEstudiante.getAcudiente());
+            this.setDireccion(pEstudiante.getDireccion());
+            this.setDocIdentificacion(pEstudiante.getDocumento());
+            this.setEps(pEstudiante.getEps());
+            this.setFechaNacimiento(pEstudiante.getFechaNacimiento());
+            this.setrH(pEstudiante.getrH());
+            this.setTelefono(pEstudiante.getTelefono());
+        }catch(Exception e){
+            e.printStackTrace();
+            throw new Exception(e.getMessage());
+        }
     }
     
 }

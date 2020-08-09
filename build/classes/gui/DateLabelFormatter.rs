@@ -1,1 +1,0 @@
-net.codejava.swing.DateLabelFormatter

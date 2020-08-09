@@ -67,7 +67,7 @@ public class GUIListarDatos extends JPanel{
         JScrollPane scroll =new JScrollPane(tbl);
         //scroll.setSize(900, 400);
         tbl.setRowHeight(30);
-        scroll.setBounds(0, 0, 983, 500);
+        scroll.setBounds(0, 0, 983, 390);
         add(scroll);
         invalidate();
         validate();

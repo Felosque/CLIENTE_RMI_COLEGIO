@@ -24,7 +24,7 @@ public class JDialogListarDatos extends JDialog {
 
         
         setTitle("Gestión Estudiantil - Lista de estudiantes");
-        setSize(new Dimension(1000, 400));
+        setSize(new Dimension(1000, 500));
         setResizable(false);
         setLocationRelativeTo(null);
 

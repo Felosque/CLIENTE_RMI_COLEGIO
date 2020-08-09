@@ -47,14 +47,18 @@ public class GUIPrincipal extends JFrame implements ActionListener{
         return colegio.buscarEstudiante(identificacion);
     }
     
-    public void registrarEstudiante(Estudiante pEstudiante)
+    public void registrarEstudiante(Estudiante pEstudiante) throws Exception
     {
         colegio.insertarEstudiante(pEstudiante);
     }
     
-    public void actualizarEstudiante(String pDocumento, Estudiante pEstudiante)
+    public void actualizarEstudiante(String pDocumento, Estudiante pEstudiante) throws Exception
     {
-        colegio.actualizarEstudiante(pDocumento, pEstudiante);
+        try{
+            colegio.actualizarEstudiante(pDocumento, pEstudiante);
+        }catch(Exception e){
+            throw new Exception(e.getMessage());
+        }
     }
     
     public void borrarEstudiante(String pDocumento)    
