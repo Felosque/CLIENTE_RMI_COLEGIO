@@ -34,7 +34,6 @@ public class JDialogPanelInfo extends JDialog{
         setResizable(false);
         //setAlwaysOnTop(true);
         setLocationRelativeTo(null);
-        UIManager.put("TextField.inactiveforeground", new ColorUIResource(Color.BLACK));
         
         JPanel panelTitulo = new JPanel();
         lbTitulo = new JLabel("TITULO GENERICO");
