@@ -26,7 +26,7 @@ public class Estudiante {
     
     private String documentoIdentificacion;
     
-    private String rH;
+    private int genero;
     
     private String eps;
     
@@ -38,12 +38,12 @@ public class Estudiante {
     
     private String correo;
 
-    public Estudiante(String nombres, String apellidos, Date fechaNacimiento, String documentoIdentificacion, String rH, String eps, String telefonoAcudiente, String direccion, String correo) {
+    public Estudiante(String nombres, String apellidos, Date fechaNacimiento, String documentoIdentificacion, int rH, String eps, String telefonoAcudiente, String direccion, String correo) {
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.fechaNacimiento = fechaNacimiento;
         this.documentoIdentificacion = documentoIdentificacion;
-        this.rH = rH;
+        this.genero = rH;
         this.eps = eps;
         this.telefono = telefonoAcudiente;
         this.direccion = direccion;
@@ -104,15 +104,12 @@ public class Estudiante {
         this.documentoIdentificacion = docIdent;
     }
 
-    public String getrH() {
-        return rH;
+    public int getGenero() {
+        return genero;
     }
 
-    public void setrH(String rH) throws Exception {
-        if(rH == null || rH.isEmpty()){
-            throw new Exception("¡El RH no puede estar vacio!");
-        }
-        this.rH = rH;
+    public void setGenero(int rH) {
+        this.genero = rH;
     }
 
     public String getEps() {
@@ -189,10 +186,9 @@ public class Estudiante {
             this.setDocIdentificacion(pEstudiante.getDocumento());
             this.setEps(pEstudiante.getEps());
             this.setFechaNacimiento(pEstudiante.getFechaNacimiento());
-            this.setrH(pEstudiante.getrH());
+            this.setGenero(pEstudiante.getGenero());
             this.setTelefono(pEstudiante.getTelefono());
         }catch(Exception e){
-            e.printStackTrace();
             throw new Exception(e.getMessage());
         }
     }

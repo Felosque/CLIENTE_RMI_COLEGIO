@@ -9,13 +9,11 @@ import com.toedter.calendar.JDateChooser;
 import constantes.ColegioConstantes;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDateTime;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import estructural.Estudiante;
 import gui.GUIConstantes.TIPO_ACCION;
 import java.awt.Color;
-import java.util.Date;
 
 /**
  *
@@ -71,6 +69,8 @@ public class GUIPanelInfo extends javax.swing.JPanel implements ActionListener{
         //txtTitulo.setHorizontalAlignment(JLabel.Center);
         btAccion.addActionListener(this);
         btAccion.setActionCommand("ACCION");
+        
+        jcGenero.setEditable(false);
     }
 
     /**
@@ -91,7 +91,6 @@ public class GUIPanelInfo extends javax.swing.JPanel implements ActionListener{
         jLabel5 = new javax.swing.JLabel();
         jtDNI = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jtRH = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jtEps = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
@@ -103,6 +102,7 @@ public class GUIPanelInfo extends javax.swing.JPanel implements ActionListener{
         imagenPersona = new javax.swing.JLabel();
         btAccion = new javax.swing.JButton();
         panelCalendario = new javax.swing.JPanel();
+        jcGenero = new javax.swing.JComboBox<>();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -129,11 +129,8 @@ public class GUIPanelInfo extends javax.swing.JPanel implements ActionListener{
         jtDNI.setEditable(false);
         jPanel1.add(jtDNI, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 140, 390, -1));
 
-        jLabel6.setText("Factor RH:");
+        jLabel6.setText("Género:");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 170, 150, 20));
-
-        jtRH.setEditable(false);
-        jPanel1.add(jtRH, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 190, 180, -1));
 
         jLabel7.setText("Documento de identificación:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 120, 200, 20));
@@ -181,6 +178,9 @@ public class GUIPanelInfo extends javax.swing.JPanel implements ActionListener{
         panelCalendario.setLayout(null);
         jPanel1.add(panelCalendario, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 90, 390, 20));
 
+        jcGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Masculino", "Femenino" }));
+        jPanel1.add(jcGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 190, 180, -1));
+
         add(jPanel1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -210,13 +210,13 @@ public class GUIPanelInfo extends javax.swing.JPanel implements ActionListener{
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JComboBox<String> jcGenero;
     private javax.swing.JTextField jtApellido;
     private javax.swing.JTextField jtCorreo;
     private javax.swing.JTextField jtDNI;
     private javax.swing.JTextField jtDireccion;
     private javax.swing.JTextField jtEps;
     private javax.swing.JTextField jtNombre;
-    private javax.swing.JTextField jtRH;
     private javax.swing.JTextField jtTelf;
     private javax.swing.JPanel panelCalendario;
     // End of variables declaration//GEN-END:variables
@@ -255,7 +255,7 @@ public class GUIPanelInfo extends javax.swing.JPanel implements ActionListener{
         jtNombre.setEditable(pEdit);
         jtApellido.setEditable(pEdit);
         jtDNI.setEditable(pEdit);
-        jtRH.setEditable(pEdit);
+        jcGenero.setEnabled(pEdit);
         jtEps.setEditable(pEdit);
         jtCorreo.setEditable(pEdit);
         jtDireccion.setEditable(pEdit);
@@ -270,7 +270,7 @@ public class GUIPanelInfo extends javax.swing.JPanel implements ActionListener{
         jtNombre.setText(pEstudiante.getNombres());
         jtApellido.setText(pEstudiante.getApellidos());
         jtDNI.setText(pEstudiante.getDocumento());
-        jtRH.setText(pEstudiante.getrH());
+        jcGenero.setSelectedIndex(pEstudiante.getGenero());
         jtEps.setText(pEstudiante.getEps());
         jtCorreo.setText(pEstudiante.getCorreo());
         jtDireccion.setText(pEstudiante.getDireccion());
@@ -286,7 +286,7 @@ public class GUIPanelInfo extends javax.swing.JPanel implements ActionListener{
             estudianteCreado.setFechaNacimiento(jdFechaNacimiento.getDate());
             estudianteCreado.setDocIdentificacion(jtDNI.getText().trim());
             estudianteCreado.setEps(jtEps.getText().trim());
-            estudianteCreado.setrH(jtRH.getText().trim());
+            estudianteCreado.setGenero(jcGenero.getSelectedIndex());
             estudianteCreado.setTelefono(jtTelf.getText().trim());
             estudianteCreado.setCorreo(jtCorreo.getText().trim());
             estudianteCreado.setDireccion(jtDireccion.getText().trim());

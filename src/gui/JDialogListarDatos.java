@@ -6,7 +6,6 @@
 package gui;
 
 import java.awt.BorderLayout;
-import static java.awt.Dialog.ModalityType.TOOLKIT_MODAL;
 import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.JDialog;
@@ -42,6 +41,10 @@ public class JDialogListarDatos extends JDialog {
         GUIListarDatos panelListar = new GUIListarDatos(gui);
         add(panelListar, BorderLayout.CENTER);
         
+    }
+
+    JDialogListarDatos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

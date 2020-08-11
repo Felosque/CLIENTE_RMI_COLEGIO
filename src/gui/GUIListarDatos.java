@@ -36,26 +36,26 @@ public class GUIListarDatos extends JPanel{
     public void crearTabla(ArrayList<Estudiante> est)
     {
         Vector columnas = new Vector();
+        columnas.add("Documento");
         columnas.add("Nombres");
         columnas.add("Apellidos");
-        columnas.add("Correo");
-        columnas.add("Documento");
+        columnas.add("Género");
         columnas.add("F. Nacimiento");
+        columnas.add("Correo");
         columnas.add("Dirección");
-        columnas.add("Factor RH");
         columnas.add("Teléfono");
         
         Vector filas = new Vector();
         
         for (int i = 0; i < est.size(); i++) {
             Vector fila = new Vector();
+            fila.add(est.get(i).getDocumento());
             fila.add(est.get(i).getNombres());
             fila.add(est.get(i).getApellidos());
-            fila.add(est.get(i).getCorreo());
-            fila.add(est.get(i).getDocumento());
+            fila.add((est.get(i).getGenero() == 0) ?"Masculino":"Femenino");
             fila.add(est.get(i).getFechaNacimiento().toString());
+            fila.add(est.get(i).getCorreo());
             fila.add(est.get(i).getDireccion());
-            fila.add(est.get(i).getrH());
             fila.add(est.get(i).getTelefono());
             filas.add(fila);
         }
@@ -65,6 +65,7 @@ public class GUIListarDatos extends JPanel{
         tbl.setEnabled(false);
         JScrollPane scroll =new JScrollPane(tbl);
         //scroll.setSize(900, 400);
+        
         tbl.setRowHeight(30);
         scroll.setBounds(0, 0, 983, 390);
         add(scroll);

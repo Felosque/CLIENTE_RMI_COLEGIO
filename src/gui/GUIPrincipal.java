@@ -104,7 +104,7 @@ public class GUIPrincipal extends JFrame implements ActionListener{
     private JMenu menuArchivo, menuEstudiante, menuAyuda;
     
     private JMenuItem mnSalir, mnAyuda;
-    private JMenuItem mnEstListar, mnEstCrear, mnEstEliminar, mnEstActualizar, mnEstBuscar;
+    private JMenuItem mnEstListar, mnEstCrear, mnEstEliminar, mnEstActualizar, mnEstBuscar, mnEstGrafica;
     
     public void inicializarMenuBar()
     {
@@ -142,6 +142,10 @@ public class GUIPrincipal extends JFrame implements ActionListener{
         mnEstEliminar = new JMenuItem("Eliminar Estudiante");
         mnEstEliminar.addActionListener(this);
         menuEstudiante.add(mnEstEliminar);
+        
+        mnEstGrafica = new JMenuItem("Estadisticas de Estudiantes");
+        mnEstGrafica.addActionListener(this);
+        menuEstudiante.add(mnEstGrafica);
         
         //Menú ayuda
         menuAyuda = new JMenu("Ayuda");
@@ -198,6 +202,10 @@ public class GUIPrincipal extends JFrame implements ActionListener{
         }
         else if(e.getSource() == mnEstListar){
             this.uiVerLista();
+        }
+        else if(e.getSource() == mnEstGrafica){
+            JDialogGraficos dialogoGrafica = new JDialogGraficos(colegio.cantidadEstudiantesPorGenero());
+            dialogoGrafica.setVisible(true);
         }
         else if(e.getSource() == mnAyuda){
             JOptionPane.showMessageDialog(this,"Desarrollado por:\n\n- Alejandro Luna Miranda\n- Luis Felipe Londoño\n\n\tUNIVERSIDAD DE IBAGUÉ\n\t\t©©©©©© 2020 ©©©©©©");

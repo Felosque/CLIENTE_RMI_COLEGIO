@@ -20,8 +20,11 @@ public class ServicioEstudiante {
     public ServicioEstudiante() {
         estudiantes = new ArrayList<>();
         Date date = sumarRestarAnosDate(new Date(), -8);
-        estudiantes.add(new Estudiante("Alejandro", "Luna", date, "987654321", "A+", "SALUDCOP", "30012324234", "Avenida 49", "alejandro.luna@gmail.com"));
-        estudiantes.add(new Estudiante("Luis Felipe", "Londoño Medina", date, "123456789", "O+", "SALUD TOTAL", "2772478", "CALLE 60 A", "felipelondono@gmail.com")); 
+        estudiantes.add(new Estudiante("Alejandro", "Luna", date, "987654321", 0, "SALUDCOP", "30012324234", "Avenida 49", "alejandro.luna@gmail.com"));
+        estudiantes.add(new Estudiante("Luis Felipe", "Londoño Medina", date, "123456789", 0, "SALUD TOTAL", "2772478", "CALLE 60 A", "felipelondono@gmail.com")); 
+        for (int i = 0; i < 10; i++) {
+            estudiantes.add(new Estudiante("Luis Felipe", "Londoño Medina", date, "123456789", 1, "SALUD TOTAL", "2772478", "CALLE 60 A", "felipelondono@gmail.com")); 
+        }
     }
     
     public void insertarEstudiante(Estudiante pEstudiante){
@@ -69,6 +72,20 @@ public class ServicioEstudiante {
 
     public void cambiarEstudiantes(ArrayList<Estudiante> estudiantes) {
         this.estudiantes = estudiantes;
+    }
+    
+    //En la posición 0 devuelve la cantidad de hombres, en la 1 la cantidad de mujeres 
+    public int[] cantidadEstudiantesPorGenero()
+    {
+        int[] cantEstu = new int[2];
+        for (int i = 0; i < estudiantes.size(); i++) {
+            if(estudiantes.get(i).getGenero() == 0){
+                cantEstu[0]++;
+            }else {
+                cantEstu[1]++;
+            }
+        }
+        return cantEstu;
     }
     
     

@@ -6,11 +6,14 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.plaf.ColorUIResource;
 
 /**
  *
@@ -31,6 +34,7 @@ public class JDialogPanelInfo extends JDialog{
         setResizable(false);
         //setAlwaysOnTop(true);
         setLocationRelativeTo(null);
+        UIManager.put("TextField.inactiveforeground", new ColorUIResource(Color.BLACK));
         
         JPanel panelTitulo = new JPanel();
         lbTitulo = new JLabel("TITULO GENERICO");
