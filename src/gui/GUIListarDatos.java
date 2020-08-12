@@ -31,7 +31,7 @@ public class GUIListarDatos extends JPanel{
         
         this.principal = gui;
         crearTabla(principal.getEstudiantes());
-        this.setBackground(new Color(0, 0, 0));
+        //this.setBackground(new Color(0, 0, 0));
         setLayout(null);
     }
     

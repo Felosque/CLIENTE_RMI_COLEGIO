@@ -14,6 +14,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import model.IServicioEstudiante;
 import model.ServicioLocalEstudiante;
@@ -65,7 +67,7 @@ public class GUIPrincipal extends JFrame implements ActionListener{
         ServicioLocalEstudiante.getServicio().eliminarEstudiante(pDocumento);
     }
     
-    public void uiVerLista()
+    public void uiVerLista() throws RemoteException
     {
         JDialogListarDatos dialogoVerLista = new JDialogListarDatos(this);
         dialogoVerLista.setVisible(true);
@@ -213,7 +215,11 @@ public class GUIPrincipal extends JFrame implements ActionListener{
             }
         }
         else if(e.getSource() == mnEstListar){
-            this.uiVerLista();
+            try {
+                this.uiVerLista();
+            } catch (RemoteException ex) {
+                Logger.getLogger(GUIPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         else if(e.getSource() == mnEstGrafica){
             try{

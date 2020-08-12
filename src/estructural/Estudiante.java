@@ -5,10 +5,7 @@
  */
 package estructural;
 
-import static constantes.UtilitiesFunctions.EDAD_MINIMA_REGISTRO;
-import static constantes.UtilitiesFunctions.isEmailValid;
-import static constantes.UtilitiesFunctions.isNumeric;
-import static constantes.UtilitiesFunctions.sumarRestarAnosDate;
+import static constantes.UtilitiesFunctions.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -29,8 +26,6 @@ public class Estudiante implements Serializable{
     private int genero;
     
     private String eps;
-    
-    private String acudiente;
     
     private String telefono;
     
@@ -98,7 +93,7 @@ public class Estudiante implements Serializable{
         if(docIdent == null || docIdent.isEmpty()){
             throw new Exception("¡El documento de identificación no pueden estar vacio!");
         }
-        if(!isNumeric(docIdent)){
+        if(!esNumerico(docIdent)){
             throw new Exception("¡Solo puedes digitar numeros en el documento de identificación!");
         }
         this.documentoIdentificacion = docIdent;
@@ -123,17 +118,6 @@ public class Estudiante implements Serializable{
         this.eps = eps;
     }
 
-    public String getAcudiente() {
-        return acudiente;
-    }
-
-    public void setAcudiente(String acudiente) throws Exception {
-        if(acudiente == null || acudiente.isEmpty()){
-            throw new Exception("¡El acudiente no puede estar vacio!");
-        }
-        this.acudiente = acudiente;
-    }
-
     public String getTelefono() {
         return telefono;
     }
@@ -142,7 +126,7 @@ public class Estudiante implements Serializable{
         if(pTelefono == null || pTelefono.isEmpty()){
             throw new Exception("¡El teléfono no puede estar vacio!");
         }
-        if(!isNumeric(pTelefono)){
+        if(!esNumerico(pTelefono)){
             throw new Exception("¡Solo puedes digitar numeros en el número de telefono!");
         }
         this.telefono = pTelefono;
@@ -167,7 +151,7 @@ public class Estudiante implements Serializable{
         if(correo == null || correo.isEmpty()){
             this.correo = "";
         }else{
-            if(!isEmailValid(correo)){
+            if(!esEmailValido(correo)){
                 throw new Exception("¡La dirección de correo no es valida!");
             }
             this.correo = correo;

@@ -23,7 +23,7 @@ public class UtilitiesFunctions {
     }
     
     //Verifica si la cadena es un numero
-    public static boolean isNumeric(String value){
+    public static boolean esNumerico(String value){
         boolean ret = false;
         if (!value.isEmpty()) {
             ret = value.matches("^[0-9]+$");
@@ -31,13 +31,14 @@ public class UtilitiesFunctions {
         return ret;
     }
     
+    //Genera un arreglo de int dando el Día, Mes, Año de un Date dado por parametro
     public static int[] darDiaMesAno(Date pDate)
     {
         Calendar cal = Calendar.getInstance();
         cal.setTime(pDate);
         int[] diaMesAno = new int[3];
         diaMesAno[0] = cal.get(Calendar.DAY_OF_MONTH);
-        diaMesAno[1] = cal.get(Calendar.MONTH);
+        diaMesAno[1] = cal.get(Calendar.MONTH) + 1;
         diaMesAno[2] = cal.get(Calendar.YEAR);
         return diaMesAno;
     }
@@ -50,7 +51,7 @@ public class UtilitiesFunctions {
         diaMesAno[1] = Integer.toString(diaMesAnoInt[1]);
         diaMesAno[2] = Integer.toString(diaMesAnoInt[2]);
         if(diaMesAno[0].length() < 2){
-            diaMesAno[0] = "0" + diaMesAno[1];
+            diaMesAno[0] = "0" + diaMesAno[0];
         }
         if(diaMesAno[1].length() < 2){
             diaMesAno[1] = "0" + diaMesAno[1];
@@ -66,7 +67,7 @@ public class UtilitiesFunctions {
         return calendar.getTime();
     }
     
-    public static boolean isEmailValid(String eMail){
+    public static boolean esEmailValido(String eMail){
         Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
 					+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
         Matcher mather = pattern.matcher(eMail);

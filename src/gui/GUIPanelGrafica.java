@@ -28,7 +28,7 @@ public class GUIPanelGrafica extends javax.swing.JPanel {
      */
     public GUIPanelGrafica(int[] cantidadGenero) {
         initComponents();
-        setBackground(Color.red);
+        setBackground(Color.white);
         datos = new DefaultPieDataset();
         
         
