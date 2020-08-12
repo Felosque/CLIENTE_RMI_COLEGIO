@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
  *
  * @author felip
  */
-public class ColegioConstantes {
+public class VerifyFunctions {
     
     public static final int EDAD_MINIMA_REGISTRO = 5;
     

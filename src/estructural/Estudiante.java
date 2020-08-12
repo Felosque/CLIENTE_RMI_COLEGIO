@@ -5,18 +5,18 @@
  */
 package estructural;
 
-import constantes.ColegioConstantes;
-import static constantes.ColegioConstantes.EDAD_MINIMA_REGISTRO;
-import static constantes.ColegioConstantes.isEmailValid;
-import static constantes.ColegioConstantes.isNumeric;
-import static constantes.ColegioConstantes.sumarRestarAnosDate;
+import static constantes.VerifyFunctions.EDAD_MINIMA_REGISTRO;
+import static constantes.VerifyFunctions.isEmailValid;
+import static constantes.VerifyFunctions.isNumeric;
+import static constantes.VerifyFunctions.sumarRestarAnosDate;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author felip
  */
-public class Estudiante {
+public class Estudiante implements Serializable{
     
     private String nombres;
     

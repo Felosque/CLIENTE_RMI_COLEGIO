@@ -9,11 +9,13 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import javax.swing.JFrame;
-import servicios.ServicioEstudiante;
 import estructural.Estudiante;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.Naming;
+import java.rmi.RemoteException;
 import javax.swing.*;
+import model.IServicioEstudiante;
 
 /**
  *
@@ -21,14 +23,14 @@ import javax.swing.*;
  */
 public class GUIPrincipal extends JFrame implements ActionListener{
     
-    private ServicioEstudiante colegio;
     
     private GUIPanelInicio panelInicio;
-           
+
+    private IServicioEstudiante servicioEstudiante;
     
-    public GUIPrincipal() {
+    public GUIPrincipal(IServicioEstudiante pServEst) {
         
-        colegio = new ServicioEstudiante();
+        servicioEstudiante = pServEst;
         
         inicializarMenuBar();
         
@@ -37,33 +39,33 @@ public class GUIPrincipal extends JFrame implements ActionListener{
         setSize(new Dimension(500, 401));
     }
     
-    public ArrayList<Estudiante> getEstudiantes()
+    public ArrayList<Estudiante> getEstudiantes() throws RemoteException
     {
-        return colegio.darEstudiantes();
+        return servicioEstudiante.darEstudiantes();
     }
     
-    public Estudiante buscarEstudiante(String identificacion)
+    public Estudiante buscarEstudiante(String identificacion) throws RemoteException
     {
-        return colegio.buscarEstudiante(identificacion);
+        return servicioEstudiante.buscarEstudiante(identificacion);
     }
     
-    public void registrarEstudiante(Estudiante pEstudiante) throws Exception
+    public void registrarEstudiante(Estudiante pEstudiante) throws RemoteException
     {
-        colegio.insertarEstudiante(pEstudiante);
+        servicioEstudiante.insertarEstudiante(pEstudiante);
     }
     
-    public void actualizarEstudiante(String pDocumento, Estudiante pEstudiante) throws Exception
+    public void actualizarEstudiante(String pDocumento, Estudiante pEstudiante) throws RemoteException
     {
         try{
-            colegio.actualizarEstudiante(pDocumento, pEstudiante);
-        }catch(Exception e){
-            throw new Exception(e.getMessage());
+            servicioEstudiante.actualizarEstudiante(pDocumento, pEstudiante);
+        }catch(RemoteException e){
+            throw new RemoteException(e.getMessage());
         }
     }
     
-    public void borrarEstudiante(String pDocumento)    
+    public void borrarEstudiante(String pDocumento) throws RemoteException    
     {
-        colegio.eliminarEstudiante(pDocumento);
+        servicioEstudiante.eliminarEstudiante(pDocumento);
     }
     
     public void uiVerLista()
@@ -164,12 +166,17 @@ public class GUIPrincipal extends JFrame implements ActionListener{
         else if(e.getSource() == mnEstBuscar){
             String identificacion = JOptionPane.showInputDialog(this, "Digite el numero de identificación del estudiante que desea buscar:", "Buscar Estudiante", JOptionPane.WARNING_MESSAGE);
             if(identificacion != null){
-                Estudiante estudiante = this.buscarEstudiante(identificacion);
-                if(estudiante != null){
+                Estudiante estudiante;
+                try {
+                    estudiante = this.buscarEstudiante(identificacion);
+                    if(estudiante != null){
                     this.uiVisualizarEstudiante(estudiante);
-                }
-                else{
-                    JOptionPane.showMessageDialog(this, "El estudiante no se ha encontrado en la base de datos.");
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(this, "El estudiante no se ha encontrado en la base de datos.");
+                    }
+                } catch (RemoteException ex) {
+                    
                 }
             }
         }
@@ -179,24 +186,32 @@ public class GUIPrincipal extends JFrame implements ActionListener{
         else if(e.getSource() == mnEstEliminar){
             String identificacion = JOptionPane.showInputDialog(this, "Digite el numero de identificación del estudiante que desea eliminar:", "Eliminar Estudiante", JOptionPane.WARNING_MESSAGE);
             if(identificacion != null){
-                Estudiante estudiante = this.buscarEstudiante(identificacion);
-                if(estudiante != null){
-                    this.uiBorrarEstudiante(estudiante);
-                }
-                else{
-                    JOptionPane.showMessageDialog(this, "El estudiante no se ha encontrado en la base de datos.");
+                try{
+                    Estudiante estudiante = this.buscarEstudiante(identificacion);
+                    if(estudiante != null){
+                        this.uiBorrarEstudiante(estudiante);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(this, "El estudiante no se ha encontrado en la base de datos.");
+                    }
+                } catch (RemoteException ex) {
+                    
                 }
             }
         }
         else if(e.getSource() == mnEstActualizar){
             String identificacion = JOptionPane.showInputDialog(this, "Digite el numero de identificación del estudiante que desea actualizar:", "Actualizar Estudiante", JOptionPane.WARNING_MESSAGE);
             if(identificacion != null){
-                Estudiante estudiante = this.buscarEstudiante(identificacion);
-                if(estudiante != null){
-                    this.uiModificarEstudiante(estudiante);
-                }
-                else{
-                    JOptionPane.showMessageDialog(this, "El estudiante no se ha encontrado en la base de datos.");
+                try{
+                    Estudiante estudiante = this.buscarEstudiante(identificacion);
+                    if(estudiante != null){
+                        this.uiModificarEstudiante(estudiante);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(this, "El estudiante no se ha encontrado en la base de datos.");
+                    }
+                } catch (RemoteException ex) {
+                    
                 }
             }
         }
@@ -204,8 +219,12 @@ public class GUIPrincipal extends JFrame implements ActionListener{
             this.uiVerLista();
         }
         else if(e.getSource() == mnEstGrafica){
-            JDialogGraficos dialogoGrafica = new JDialogGraficos(colegio.cantidadEstudiantesPorGenero());
-            dialogoGrafica.setVisible(true);
+            try{
+                JDialogGraficos dialogoGrafica = new JDialogGraficos(servicioEstudiante.cantidadEstudiantesPorGenero());
+                dialogoGrafica.setVisible(true);
+            } catch (RemoteException ex) {
+                    
+            }
         }
         else if(e.getSource() == mnAyuda){
             JOptionPane.showMessageDialog(this,"Desarrollado por:\n\n- Alejandro Luna Miranda\n- Luis Felipe Londoño\n\n\tUNIVERSIDAD DE IBAGUÉ\n\t\t©©©©©© 2020 ©©©©©©");
@@ -213,13 +232,18 @@ public class GUIPrincipal extends JFrame implements ActionListener{
     }
     
     public static void main(String arg[]){
-        GUIPrincipal ven = new GUIPrincipal();
-        ven.setTitle("Gestión estudiantil");
-        ven.setVisible(true);
-        ven.setSize(new Dimension(500, 400));
-        ven.setLayout(new BorderLayout());
-        ven.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        ven.setResizable(false);
-        ven.setLocationRelativeTo(null);
+        try{
+            IServicioEstudiante model = (IServicioEstudiante)Naming.lookup("//127.0.0.1/ServicioEstudiante");
+            GUIPrincipal ven = new GUIPrincipal(model);
+            ven.setTitle("Gestión estudiantil");
+            ven.setVisible(true);
+            ven.setSize(new Dimension(500, 400));
+            ven.setLayout(new BorderLayout());
+            ven.setDefaultCloseOperation(EXIT_ON_CLOSE);
+            ven.setResizable(false);
+            ven.setLocationRelativeTo(null);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 }
