@@ -165,7 +165,7 @@ public class Estudiante implements Serializable{
 
     public void setCorreo(String correo) throws Exception {
         if(correo == null || correo.isEmpty()){
-            this.correo = "NO REGISTRADO";
+            this.correo = "";
         }else{
             if(!isEmailValid(correo)){
                 throw new Exception("¡La dirección de correo no es valida!");

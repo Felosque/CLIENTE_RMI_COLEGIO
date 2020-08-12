@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import estructural.Estudiante;
+import java.rmi.RemoteException;
 import org.netbeans.lib.awtextra.AbsoluteLayout;
 
 /**
@@ -24,7 +25,7 @@ public class GUIListarDatos extends JPanel{
 
     private GUIPrincipal principal;
     
-    public GUIListarDatos(GUIPrincipal gui) {
+    public GUIListarDatos(GUIPrincipal gui) throws RemoteException {
         
         this.principal = gui;
         crearTabla(principal.getEstudiantes());
@@ -54,7 +55,7 @@ public class GUIListarDatos extends JPanel{
             fila.add(est.get(i).getApellidos());
             fila.add((est.get(i).getGenero() == 0) ?"Masculino":"Femenino");
             fila.add(est.get(i).getFechaNacimiento().toString());
-            fila.add(est.get(i).getCorreo());
+            fila.add((est.get(i).getCorreo().trim().isEmpty()) ?"NO REGISTRADO":""+est.get(i).getCorreo());
             fila.add(est.get(i).getDireccion());
             fila.add(est.get(i).getTelefono());
             filas.add(fila);
