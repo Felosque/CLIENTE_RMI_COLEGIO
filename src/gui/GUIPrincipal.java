@@ -16,6 +16,7 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import javax.swing.*;
 import model.IServicioEstudiante;
+import model.ServicioLocalEstudiante;
 
 /**
  *
@@ -25,13 +26,9 @@ public class GUIPrincipal extends JFrame implements ActionListener{
     
     
     private GUIPanelInicio panelInicio;
-
-    private IServicioEstudiante servicioEstudiante;
     
-    public GUIPrincipal(IServicioEstudiante pServEst) {
-        
-        servicioEstudiante = pServEst;
-        
+    public GUIPrincipal() {
+       
         inicializarMenuBar();
         
         panelInicio = new GUIPanelInicio();
@@ -41,23 +38,23 @@ public class GUIPrincipal extends JFrame implements ActionListener{
     
     public ArrayList<Estudiante> getEstudiantes() throws RemoteException
     {
-        return servicioEstudiante.darEstudiantes();
+        return ServicioLocalEstudiante.getServicio().darEstudiantes();
     }
     
     public Estudiante buscarEstudiante(String identificacion) throws RemoteException
     {
-        return servicioEstudiante.buscarEstudiante(identificacion);
+        return ServicioLocalEstudiante.getServicio().buscarEstudiante(identificacion);
     }
     
     public void registrarEstudiante(Estudiante pEstudiante) throws RemoteException
     {
-        servicioEstudiante.insertarEstudiante(pEstudiante);
+        ServicioLocalEstudiante.getServicio().insertarEstudiante(pEstudiante);
     }
     
     public void actualizarEstudiante(String pDocumento, Estudiante pEstudiante) throws RemoteException
     {
         try{
-            servicioEstudiante.actualizarEstudiante(pDocumento, pEstudiante);
+            ServicioLocalEstudiante.getServicio().actualizarEstudiante(pDocumento, pEstudiante);
         }catch(RemoteException e){
             throw new RemoteException(e.getMessage());
         }
@@ -65,7 +62,7 @@ public class GUIPrincipal extends JFrame implements ActionListener{
     
     public void borrarEstudiante(String pDocumento) throws RemoteException    
     {
-        servicioEstudiante.eliminarEstudiante(pDocumento);
+        ServicioLocalEstudiante.getServicio().eliminarEstudiante(pDocumento);
     }
     
     public void uiVerLista()
@@ -220,7 +217,7 @@ public class GUIPrincipal extends JFrame implements ActionListener{
         }
         else if(e.getSource() == mnEstGrafica){
             try{
-                JDialogGraficos dialogoGrafica = new JDialogGraficos(servicioEstudiante.cantidadEstudiantesPorGenero());
+                JDialogGraficos dialogoGrafica = new JDialogGraficos(ServicioLocalEstudiante.getServicio().cantidadEstudiantesPorGenero());
                 dialogoGrafica.setVisible(true);
             } catch (RemoteException ex) {
                     
@@ -233,8 +230,11 @@ public class GUIPrincipal extends JFrame implements ActionListener{
     
     public static void main(String arg[]){
         try{
+            //Servicio junto con singleton
             IServicioEstudiante model = (IServicioEstudiante)Naming.lookup("//127.0.0.1/ServicioEstudiante");
-            GUIPrincipal ven = new GUIPrincipal(model);
+            ServicioLocalEstudiante.setServicioEstudiante(model);
+            
+            GUIPrincipal ven = new GUIPrincipal();
             ven.setTitle("Gestión estudiantil");
             ven.setVisible(true);
             ven.setSize(new Dimension(500, 400));

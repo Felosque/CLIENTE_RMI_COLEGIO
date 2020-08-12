@@ -8,6 +8,7 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.rmi.RemoteException;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,7 +21,7 @@ public class JDialogListarDatos extends JDialog {
 
     private JLabel lbTitulo;
     
-    public JDialogListarDatos(GUIPrincipal gui) {
+    public JDialogListarDatos(GUIPrincipal gui) throws RemoteException {
 
         //super(null, TOOLKIT_MODAL);
         //setDefaultCloseOperation(DISPOSE_ON_CLOSE);

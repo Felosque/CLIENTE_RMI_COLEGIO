@@ -6,7 +6,7 @@
 package gui;
 
 import com.toedter.calendar.JDateChooser;
-import constantes.VerifyFunctions;
+import constantes.UtilitiesFunctions;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
@@ -302,7 +302,6 @@ public class GUIPanelInfo extends javax.swing.JPanel implements ActionListener{
         
         try{
             Estudiante estActual = crearEstudiante();
-            System.out.println(""+ VerifyFunctions.TIPO_RH.A.name());
             if(modo == TIPO_ACCION.CREAR){
                 guiPrincipal.registrarEstudiante(estActual);
                 JOptionPane.showMessageDialog(this, "¡Se ha registrado el estudiante correctamente!");

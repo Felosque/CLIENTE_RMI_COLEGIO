@@ -5,10 +5,10 @@
  */
 package estructural;
 
-import static constantes.VerifyFunctions.EDAD_MINIMA_REGISTRO;
-import static constantes.VerifyFunctions.isEmailValid;
-import static constantes.VerifyFunctions.isNumeric;
-import static constantes.VerifyFunctions.sumarRestarAnosDate;
+import static constantes.UtilitiesFunctions.EDAD_MINIMA_REGISTRO;
+import static constantes.UtilitiesFunctions.isEmailValid;
+import static constantes.UtilitiesFunctions.isNumeric;
+import static constantes.UtilitiesFunctions.sumarRestarAnosDate;
 import java.io.Serializable;
 import java.util.Date;
 

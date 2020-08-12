@@ -14,12 +14,12 @@ import java.util.regex.Pattern;
  *
  * @author felip
  */
-public class VerifyFunctions {
+public class UtilitiesFunctions {
     
     public static final int EDAD_MINIMA_REGISTRO = 5;
-    
-    public static enum TIPO_RH{
-        A, B, O, AB
+
+    private UtilitiesFunctions(){
+        
     }
     
     //Verifica si la cadena es un numero
@@ -29,6 +29,34 @@ public class VerifyFunctions {
             ret = value.matches("^[0-9]+$");
         }
         return ret;
+    }
+    
+    public static int[] darDiaMesAno(Date pDate)
+    {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(pDate);
+        int[] diaMesAno = new int[3];
+        diaMesAno[0] = cal.get(Calendar.DAY_OF_MONTH);
+        diaMesAno[1] = cal.get(Calendar.MONTH);
+        diaMesAno[2] = cal.get(Calendar.YEAR);
+        return diaMesAno;
+    }
+    
+    public static String darDiaMesAnoToString(Date pDate){
+        
+        int[] diaMesAnoInt = darDiaMesAno(pDate);
+        String[] diaMesAno = new String[3];
+        diaMesAno[0] = Integer.toString(diaMesAnoInt[0]);
+        diaMesAno[1] = Integer.toString(diaMesAnoInt[1]);
+        diaMesAno[2] = Integer.toString(diaMesAnoInt[2]);
+        if(diaMesAno[0].length() < 2){
+            diaMesAno[0] = "0" + diaMesAno[1];
+        }
+        if(diaMesAno[1].length() < 2){
+            diaMesAno[1] = "0" + diaMesAno[1];
+        }
+        String fecha = diaMesAno[0] + " / " + diaMesAno[1] + " / " + diaMesAno[2];
+        return fecha;
     }
     
     public static Date sumarRestarAnosDate(Date fecha, int anos){

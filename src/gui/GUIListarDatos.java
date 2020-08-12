@@ -5,6 +5,7 @@
  */
 package gui;
 
+import constantes.UtilitiesFunctions;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -15,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import estructural.Estudiante;
 import java.rmi.RemoteException;
+import java.util.Calendar;
 import org.netbeans.lib.awtextra.AbsoluteLayout;
 
 /**
@@ -33,7 +35,6 @@ public class GUIListarDatos extends JPanel{
         setLayout(null);
     }
     
-    
     public void crearTabla(ArrayList<Estudiante> est)
     {
         Vector columnas = new Vector();
@@ -48,13 +49,14 @@ public class GUIListarDatos extends JPanel{
         
         Vector filas = new Vector();
         
+        
         for (int i = 0; i < est.size(); i++) {
             Vector fila = new Vector();
             fila.add(est.get(i).getDocumento());
             fila.add(est.get(i).getNombres());
             fila.add(est.get(i).getApellidos());
             fila.add((est.get(i).getGenero() == 0) ?"Masculino":"Femenino");
-            fila.add(est.get(i).getFechaNacimiento().toString());
+            fila.add(UtilitiesFunctions.darDiaMesAnoToString(est.get(i).getFechaNacimiento()));
             fila.add((est.get(i).getCorreo().trim().isEmpty()) ?"NO REGISTRADO":""+est.get(i).getCorreo());
             fila.add(est.get(i).getDireccion());
             fila.add(est.get(i).getTelefono());
