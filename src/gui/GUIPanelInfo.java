@@ -14,6 +14,8 @@ import javax.swing.JOptionPane;
 import estructural.Estudiante;
 import gui.GUIConstantes.TIPO_ACCION;
 import java.awt.Color;
+import java.rmi.RemoteException;
+import java.util.Date;
 
 /**
  *
@@ -44,26 +46,31 @@ public class GUIPanelInfo extends javax.swing.JPanel implements ActionListener{
         initComponents();
         ponerImagen();
         
-        jdFechaNacimiento = new JDateChooser();
+        jdFechaNacimiento = new JDateChooser(UtilitiesFunctions.sumarRestarAnosDate(new Date(), -5));
         panelCalendario.add(jdFechaNacimiento);
         jdFechaNacimiento.setBounds(0,0, 390, 20);
         jdFechaNacimiento.setForeground(new Color(0, 0, 0));
          
-        if(pModo == TIPO_ACCION.CREAR){
-            habilitarEdicion(true);
-            habilitarBoton(true);
-        }
-        else if(pModo == TIPO_ACCION.ACTUALIZAR){
-            habilitarEdicion(true);
-            habilitarBoton(true);
-        }
-        else if(pModo == TIPO_ACCION.LEER){
-            habilitarEdicion(false);
-            habilitarBoton(false);
-        }
-        else if(pModo == TIPO_ACCION.ELIMINAR){
-            habilitarEdicion(false);
-            habilitarBoton(true);
+        if(null != pModo) switch (pModo) {
+            case CREAR:
+                habilitarEdicion(true);
+                habilitarBoton(true);
+                break;
+            case ACTUALIZAR:
+                habilitarEdicion(true);
+                jtDNI.setEditable(false);
+                habilitarBoton(true);
+                break;
+            case LEER:
+                habilitarEdicion(false);
+                habilitarBoton(false);
+                break;
+            case ELIMINAR:
+                habilitarEdicion(false);
+                habilitarBoton(true);
+                break;
+            default:
+                break;
         }
        
         //txtTitulo.setHorizontalAlignment(JLabel.Center);
@@ -323,9 +330,11 @@ public class GUIPanelInfo extends javax.swing.JPanel implements ActionListener{
                 }
             }
             
-        }catch(Exception ex){
+        } catch(RemoteException er){
+            JOptionPane.showMessageDialog(this, er.getLocalizedMessage(), "ATENCIÓN", JOptionPane.ERROR_MESSAGE);
+        } catch(Exception ex){
             JOptionPane.showMessageDialog(this, ex.getMessage(), "ATENCIÓN", JOptionPane.ERROR_MESSAGE);
-        }
+        } 
 
     }
     
