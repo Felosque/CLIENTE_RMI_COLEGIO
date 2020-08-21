@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import estructural.Estudiante;
+import estructural.Matricula;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.Naming;
@@ -18,7 +19,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 import model.IServicioEstudiante;
+import model.IServicioMateria;
+import model.IServicioMatricula;
 import model.ServicioLocalEstudiante;
+import model.ServicioLocalMateria;
+import model.ServicioLocalMatricula;
 
 /**
  *
@@ -100,11 +105,12 @@ public class GUIPrincipal extends JFrame implements ActionListener{
         eliminarEstudiante.setVisible(true);
     }
          
-    private JMenuBar barraMenu;
     
-    private JMenu menuArchivo, menuEstudiante, menuAyuda;
+    private JMenuBar barraMenu;
+    private JMenu menuArchivo, menuEstudiante, menuMatricula, menuAyuda;
     
     private JMenuItem mnSalir, mnAyuda;
+    private JMenuItem mnEstMatricular, mnVerEstMatriculas, mnListarMatriculas, mnEstActualizarMateria, mnGraficaMateria, mnBorrarMatricula, mnVerPromedio;
     private JMenuItem mnEstListar, mnEstCrear, mnEstEliminar, mnEstActualizar, mnEstBuscar, mnEstGrafica;
     
     public void inicializarMenuBar()
@@ -147,6 +153,37 @@ public class GUIPrincipal extends JFrame implements ActionListener{
         mnEstGrafica = new JMenuItem("Estadisticas de Estudiantes");
         mnEstGrafica.addActionListener(this);
         menuEstudiante.add(mnEstGrafica);
+        
+        mnVerPromedio = new JMenuItem("Ver promedio Estudiante");
+        mnVerPromedio.addActionListener(this);
+        menuEstudiante.add(mnVerPromedio);
+        
+        menuMatricula = new JMenu("Matriculas");
+        barraMenu.add(menuMatricula);
+        
+        mnEstMatricular = new JMenuItem("Matricular Estudiante");
+        mnEstMatricular.addActionListener(this);
+        menuMatricula.add(mnEstMatricular);
+        
+        mnVerEstMatriculas = new JMenuItem("Ver matriculas estudiante");
+        mnVerEstMatriculas.addActionListener(this);
+        menuMatricula.add(mnVerEstMatriculas);
+        
+        mnListarMatriculas = new JMenuItem("Listar matriculas");
+        mnListarMatriculas.addActionListener(this);
+        menuMatricula.add(mnListarMatriculas);
+        
+        mnEstActualizarMateria = new JMenuItem("Actualizar matricula");
+        mnEstActualizarMateria.addActionListener(this);
+        menuMatricula.add(mnEstActualizarMateria);
+        
+        mnBorrarMatricula = new JMenuItem("Borrar matricula");
+        mnBorrarMatricula.addActionListener(this);
+        menuMatricula.add(mnBorrarMatricula);
+        
+        mnGraficaMateria = new JMenuItem("Estadisticas de matriculas");
+        mnGraficaMateria.addActionListener(this);
+        menuMatricula.add(mnGraficaMateria);
         
         //Menú ayuda
         menuAyuda = new JMenu("Ayuda");
@@ -214,6 +251,34 @@ public class GUIPrincipal extends JFrame implements ActionListener{
                 }
             }
         }
+        else if(e.getSource() == mnEstMatricular){
+            JDialogPanelMatricula dialogoMatricula = new JDialogPanelMatricula(this);
+            dialogoMatricula.setVisible(true);
+        }
+        else if(e.getSource() == mnVerEstMatriculas){
+            try{
+                JDialogBuscarMatriculaEstudiante dialogoMatricula = new JDialogBuscarMatriculaEstudiante(0);
+                dialogoMatricula.setVisible(true);
+            } catch (RemoteException ex) {
+
+            }
+        }
+        else if(e.getSource() == mnBorrarMatricula){
+            try{
+                JDialogBuscarMatriculaEstudiante dialogoMatricula = new JDialogBuscarMatriculaEstudiante(1);
+                dialogoMatricula.setVisible(true);
+            } catch (RemoteException ex) {
+
+            }
+        }
+        else if(e.getSource() == mnEstActualizarMateria){
+            try{
+                JDialogBuscarMatriculaEstudiante dialogoMatricula = new JDialogBuscarMatriculaEstudiante(2);
+                dialogoMatricula.setVisible(true);
+            } catch (RemoteException ex) {
+
+            }
+        }
         else if(e.getSource() == mnEstListar){
             try {
                 this.uiVerLista();
@@ -229,6 +294,16 @@ public class GUIPrincipal extends JFrame implements ActionListener{
                     
             }
         }
+        else if(e.getSource() == mnVerPromedio){
+            JDialogBuscarEstudiante dia;
+            try {
+                dia = new JDialogBuscarEstudiante(null, 3);
+                dia.ponerPadreFrame(this);
+                dia.setVisible(true);
+            } catch (RemoteException ex) {
+                Logger.getLogger(GUIPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         else if(e.getSource() == mnAyuda){
             JOptionPane.showMessageDialog(this,"Desarrollado por:\n\n- Alejandro Luna Miranda\n- Luis Felipe Londoño\n\n\tUNIVERSIDAD DE IBAGUÉ\n\t\t©©©©©© 2020 ©©©©©©");
         }
@@ -237,8 +312,14 @@ public class GUIPrincipal extends JFrame implements ActionListener{
     public static void main(String arg[]){
         try{
             //Servicio junto con singleton
-            IServicioEstudiante model = (IServicioEstudiante)Naming.lookup("//127.0.0.1/ServicioEstudiante");
-            ServicioLocalEstudiante.setServicioEstudiante(model);
+            IServicioEstudiante modelEstudiante = (IServicioEstudiante)Naming.lookup("//127.0.0.1/ServicioEstudiante");
+            ServicioLocalEstudiante.setServicioEstudiante(modelEstudiante);
+            
+            IServicioMateria modelMateria = (IServicioMateria)Naming.lookup("//127.0.0.1/ServicioMateria");
+            ServicioLocalMateria.setServicioMateria(modelMateria);
+            
+            IServicioMatricula modelMatricula = (IServicioMatricula)Naming.lookup("//127.0.0.1/ServicioMatricula");
+            ServicioLocalMatricula.setServicioEstudiante(modelMatricula);
             
             GUIPrincipal ven = new GUIPrincipal();
             ven.setTitle("Gestión estudiantil");

@@ -5,34 +5,52 @@
  */
 package gui;
 
+
 import constantes.UtilitiesFunctions;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import estructural.Estudiante;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.rmi.RemoteException;
-import java.util.Calendar;
-import org.netbeans.lib.awtextra.AbsoluteLayout;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
  * @author felip
  */
-public class GUIListarDatos extends JPanel{
+public class GUIListarDatos extends JPanel implements KeyListener{
 
     private GUIPrincipal principal;
     
-    public GUIListarDatos(GUIPrincipal gui) throws RemoteException {
+    private JTextField busqueda;
+    
+    private DefaultTableModel modelo;
+    
+    private JTable tabla;
+    
+    private TableRowSorter<TableModel> ordenador;
+    
+    public GUIListarDatos(GUIPrincipal gui)  throws RemoteException{
         
         this.principal = gui;
         crearTabla(principal.getEstudiantes());
+        setBorder(BorderFactory.createTitledBorder(""));
         //this.setBackground(new Color(0, 0, 0));
         setLayout(null);
+        
+        busqueda = new JTextField();
+        busqueda.setBounds(140, 41, 300, 20);
+        busqueda.addKeyListener(this);
+        add(busqueda);
     }
     
     public void crearTabla(ArrayList<Estudiante> est)
@@ -63,19 +81,44 @@ public class GUIListarDatos extends JPanel{
             filas.add(fila);
         }
         
-        JTable tbl = new JTable(filas,columnas);
-        tbl.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-        tbl.setEnabled(false);
-        JScrollPane scroll =new JScrollPane(tbl);
+        tabla = new JTable(filas, columnas);
+        tabla.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tabla.setEnabled(false);
+        ordenador = new TableRowSorter<>(tabla.getModel());
+        tabla.setRowSorter(ordenador);
+        //TableRowFilterSupport.forTable(tabla).searchable(true).apply();
+     
+        JScrollPane scroll = new JScrollPane(tabla);
         //scroll.setSize(900, 400);
         
-        tbl.setRowHeight(30);
-        scroll.setBounds(0, 0, 983, 390);
+        tabla.setRowHeight(30);
+        scroll.setBounds(10, 70, 967, 310);
         add(scroll);
         invalidate();
         validate();
         
         
+        JLabel ayuda = new JLabel("Filtar por documento: ");
+        ayuda.setBounds(10, 0, 300, 100);
+        add(ayuda);
+        
     }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        System.out.println(busqueda.getText());
+        //ordenador.setRowFilter(RowFilter.regexFilter(busqueda.getText(), 1));
+    }
+    
     
 }

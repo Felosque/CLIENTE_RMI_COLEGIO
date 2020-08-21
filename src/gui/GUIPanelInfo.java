@@ -80,6 +80,16 @@ public class GUIPanelInfo extends javax.swing.JPanel implements ActionListener{
         jcGenero.setEditable(false);
     }
 
+    private void limpiarPantalla(){
+        jtNombre.setText("");
+        jtApellido.setText("");
+        jtDNI.setText("");
+        jtEps.setText("");
+        jtCorreo.setText("");
+        jtDireccion.setText("");
+        jtTelf.setText("");
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -312,7 +322,8 @@ public class GUIPanelInfo extends javax.swing.JPanel implements ActionListener{
             if(modo == TIPO_ACCION.CREAR){
                 guiPrincipal.registrarEstudiante(estActual);
                 JOptionPane.showMessageDialog(this, "¡Se ha registrado el estudiante correctamente!");
-                dialogoPadre.dispose();
+                //dialogoPadre.dispose();
+                limpiarPantalla();
             }
             else if(modo == TIPO_ACCION.ACTUALIZAR){//Actualizarlo
                 guiPrincipal.actualizarEstudiante(estudiante.getDocumento(), estActual);

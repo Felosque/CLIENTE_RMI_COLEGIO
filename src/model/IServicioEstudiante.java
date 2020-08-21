@@ -26,6 +26,10 @@ public interface IServicioEstudiante extends Remote{
     
     public ArrayList<Estudiante> darEstudiantes() throws RemoteException;
     
+    public ArrayList<Estudiante> darEstudiantesPorNombre(String pNombre) throws RemoteException;
+    
     public int[] cantidadEstudiantesPorGenero() throws RemoteException;
+    
+    public int darGradoEstudiante() throws RemoteException;
     
 }
