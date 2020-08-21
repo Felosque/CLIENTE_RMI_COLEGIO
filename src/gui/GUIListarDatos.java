@@ -16,12 +16,18 @@ import estructural.Estudiante;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import model.ServicioLocalEstudiante;
+import model.ServicioLocalMateria;
+import model.ServicioLocalMatricula;
 
 /**
  *
@@ -36,8 +42,6 @@ public class GUIListarDatos extends JPanel implements KeyListener{
     private DefaultTableModel modelo;
     
     private JTable tabla;
-    
-    private TableRowSorter<TableModel> ordenador;
     
     public GUIListarDatos(GUIPrincipal gui)  throws RemoteException{
         
@@ -84,9 +88,6 @@ public class GUIListarDatos extends JPanel implements KeyListener{
         tabla = new JTable(filas, columnas);
         tabla.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tabla.setEnabled(false);
-        ordenador = new TableRowSorter<>(tabla.getModel());
-        tabla.setRowSorter(ordenador);
-        //TableRowFilterSupport.forTable(tabla).searchable(true).apply();
      
         JScrollPane scroll = new JScrollPane(tabla);
         //scroll.setSize(900, 400);
@@ -98,11 +99,32 @@ public class GUIListarDatos extends JPanel implements KeyListener{
         validate();
         
         
-        JLabel ayuda = new JLabel("Filtar por documento: ");
+        JLabel ayuda = new JLabel("Filtar por nombre: ");
         ayuda.setBounds(10, 0, 300, 100);
         add(ayuda);
         
     }
+    
+    private void cambiarDatosTabla(ArrayList<Estudiante> estudiantes) throws RemoteException{
+        DefaultTableModel modelo = (DefaultTableModel)tabla.getModel();
+        modelo.getDataVector().removeAllElements();
+        revalidate();
+        
+        for (int i = 0; i < estudiantes.size(); i++) {
+            Vector fila = new Vector();
+            fila.add(estudiantes.get(i).getDocumento());
+            fila.add(estudiantes.get(i).getNombres());
+            fila.add(estudiantes.get(i).getApellidos());
+            fila.add((estudiantes.get(i).getGenero() == 0) ?"Masculino":"Femenino");
+            fila.add(UtilitiesFunctions.darDiaMesAnoToString(estudiantes.get(i).getFechaNacimiento()));
+            fila.add((estudiantes.get(i).getCorreo().trim().isEmpty()) ?"NO REGISTRADO":""+estudiantes.get(i).getCorreo());
+            fila.add(estudiantes.get(i).getDireccion());
+            fila.add(estudiantes.get(i).getTelefono());
+            modelo.addRow(fila);
+        }
+        repaint();
+    }
+    
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -116,6 +138,11 @@ public class GUIListarDatos extends JPanel implements KeyListener{
 
     @Override
     public void keyReleased(KeyEvent e) {
+        try {
+            cambiarDatosTabla(ServicioLocalEstudiante.getServicio().darEstudiantesPorNombre(busqueda.getText()));
+        } catch (RemoteException ex) {
+            Logger.getLogger(GUIListarDatos.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.out.println(busqueda.getText());
         //ordenador.setRowFilter(RowFilter.regexFilter(busqueda.getText(), 1));
     }
