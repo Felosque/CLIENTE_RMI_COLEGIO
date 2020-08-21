@@ -13,17 +13,16 @@ import javax.swing.JDialog;
  *
  * @author felip
  */
-public class JDialogGraficos extends JDialog {
+public class JDialogGraficosMatricula extends JDialog {
 
-    public JDialogGraficos(int[] generoEstudiantes) {
-        
-        
+    public JDialogGraficosMatricula(int[] datin) {
+         
         setResizable(false);
         setLocationRelativeTo(null);
-        
-        GUIPanelGrafica panelGrafica = new GUIPanelGrafica(generoEstudiantes, 1);
+
+        GUIPanelGrafica panelGrafica = new GUIPanelGrafica(datin, 2);
         add(panelGrafica, BorderLayout.CENTER);
-        
+
         this.setSize(new Dimension(616, 439));
     }
     

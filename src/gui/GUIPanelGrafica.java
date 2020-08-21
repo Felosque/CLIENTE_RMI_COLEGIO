@@ -20,28 +20,57 @@ import org.jfree.data.general.DefaultPieDataset;
  */
 public class GUIPanelGrafica extends javax.swing.JPanel {
 
-    private JFreeChart Grafica;
+    private JFreeChart grafica;
     private DefaultPieDataset datos;
     
+    private double[] datosDouble;
     /**
      * Creates new form GUIPanelGrafica
      */
-    public GUIPanelGrafica(int[] cantidadGenero) {
+    public GUIPanelGrafica(int[] cantidadGenero, int pModo) {
         initComponents();
         setBackground(Color.white);
+        if(pModo == 1)
+        {
+            ponerGraficaGenero(cantidadGenero);
+        }else{
+            ponerGraficaMateriasPorGrado(cantidadGenero);
+        }
+    }
+
+    public void ponerGraficaGenero(int[] cantidadGenero)
+    {
         datos = new DefaultPieDataset();
-        
-        
         datos.setValue("Hombres", cantidadGenero[0]);
         datos.setValue("Mujeres", cantidadGenero[1]);
-        
-        Grafica = ChartFactory.createPieChart("Estudiantes por género", datos, true, true, false);
-        ChartPanel chartPanel = new ChartPanel(Grafica);
+        grafica = ChartFactory.createPieChart("Estudiantes por género", datos, true, true, false);
+        ChartPanel chartPanel = new ChartPanel(grafica);
         chartPanel.setSize(new Dimension(600, 400));
         add(chartPanel);
         this.setSize(chartPanel.getSize());
     }
-
+    
+    public void ponerGraficaMateriasPorGrado(int[] cantidadGenero){
+        
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        
+        String grado = "Grado";
+        for (int i = 0; i < 11; i++) {
+            int d = i + 1;
+            dataset.addValue(cantidadGenero[i], grado, ""+d);
+        }
+        grafica = ChartFactory.createBarChart( "Materias por grado", "Grados", "Materias",            
+         dataset,          
+         PlotOrientation.VERTICAL,           
+         true, true, false);
+        ChartPanel chartPanel = new ChartPanel(grafica);
+        chartPanel.setSize(new Dimension(600, 400));
+        add(chartPanel);
+        this.setSize(chartPanel.getSize());
+        
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

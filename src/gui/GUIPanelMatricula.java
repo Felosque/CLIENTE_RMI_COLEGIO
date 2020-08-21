@@ -188,7 +188,7 @@ public class GUIPanelMatricula extends javax.swing.JPanel {
         jLabel4.setText("Fecha Inicio:");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
 
-        jcGrados.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "_____", "Primero", "Segundo", "Tercero", "Cuarto", "Quinto", "Sexto" }));
+        jcGrados.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "_____", "Primero", "Segundo", "Tercero", "Cuarto", "Quinto", "Sexto", "Septimo", "Octavo", "Noveno", "Decimo", "Once" }));
         jcGrados.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jcGradosItemStateChanged(evt);

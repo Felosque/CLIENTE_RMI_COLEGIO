@@ -10,7 +10,6 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import estructural.Estudiante;
-import estructural.Matricula;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.Naming;
@@ -282,6 +281,22 @@ public class GUIPrincipal extends JFrame implements ActionListener{
         else if(e.getSource() == mnEstListar){
             try {
                 this.uiVerLista();
+            } catch (RemoteException ex) {
+                Logger.getLogger(GUIPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else if(e.getSource() == mnGraficaMateria){
+            try {
+                JDialogGraficosMatricula dialog = new JDialogGraficosMatricula(ServicioLocalMatricula.getServicio().darMateriasPorGrado());
+                dialog.setVisible(true);
+            } catch (RemoteException ex) {
+                Logger.getLogger(GUIPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else if(e.getSource() == mnListarMatriculas){
+            try {
+                JDialogListarMatriculasTodas dialog = new JDialogListarMatriculasTodas();
+                dialog.setVisible(true);
             } catch (RemoteException ex) {
                 Logger.getLogger(GUIPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -192,7 +192,7 @@
         <Component class="javax.swing.JComboBox" name="jcGrados">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="7">
+              <StringArray count="12">
                 <StringItem index="0" value="_____"/>
                 <StringItem index="1" value="Primero"/>
                 <StringItem index="2" value="Segundo"/>
@@ -200,6 +200,11 @@
                 <StringItem index="4" value="Cuarto"/>
                 <StringItem index="5" value="Quinto"/>
                 <StringItem index="6" value="Sexto"/>
+                <StringItem index="7" value="Septimo"/>
+                <StringItem index="8" value="Octavo"/>
+                <StringItem index="9" value="Noveno"/>
+                <StringItem index="10" value="Decimo"/>
+                <StringItem index="11" value="Once"/>
               </StringArray>
             </Property>
           </Properties>

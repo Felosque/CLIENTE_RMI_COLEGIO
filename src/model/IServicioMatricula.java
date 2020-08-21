@@ -19,17 +19,21 @@ public interface IServicioMatricula extends Remote{
     
     public void matricularEstudiante(Matricula pMatricula) throws RemoteException;
     
+    public Matricula darMatriculaCodigo(int pCodigo) throws RemoteException;
+    
     public ArrayList<Matricula> darMatriculasEstudiante(String pDocumento) throws RemoteException;
     
     public ArrayList<Matricula> darMatriculasEstudianteGrado(String pDocumento, int Grado) throws RemoteException;
     
     public ArrayList<Matricula> darMatriculas() throws RemoteException;
     
-    public double[] darNotasMatricula(Matricula pMatricula) throws RemoteException;
+    public int[] darMateriasPorGrado() throws RemoteException;
     
     public ArrayList<Matricula> darMatriculasPorFecha(Date pFecha) throws RemoteException;
     
     public void actualizarMatricula(Matricula pMatricula) throws RemoteException;
+    
+    public void borrarMatriculaCodigo(int pCodigo) throws RemoteException;
     
     public boolean darPazYSalvoEstudiante(int pGrado, Matricula pMatricula) throws RemoteException;
     

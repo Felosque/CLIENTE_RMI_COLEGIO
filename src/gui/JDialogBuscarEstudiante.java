@@ -38,7 +38,11 @@ public class JDialogBuscarEstudiante extends javax.swing.JFrame {
         padre = pPadre;
         modo = pModo;
         initComponents();
-        setTitle("Buscar Estudiante");
+        if(pModo == 3) {
+            setTitle("Promedio Estudiante");
+        }else{
+            setTitle("Buscar Estudiante");
+        }
         setLocationRelativeTo(null);
         setSize(new Dimension(390, 530));
         
@@ -174,17 +178,20 @@ public class JDialogBuscarEstudiante extends javax.swing.JFrame {
             if(modo == 1){
                 GUIPanelMatricula p = (GUIPanelMatricula) padre;
                 p.actualizarInformacion(ServicioLocalEstudiante.getServicio().buscarEstudiante(value));
+                this.dispose();
             }else if(modo == 2){
                 JDialogBuscarMatriculaEstudiante matri = (JDialogBuscarMatriculaEstudiante) padre2;
                 matri.actualizarInformacion(ServicioLocalEstudiante.getServicio().buscarEstudiante(value));
+                this.dispose();
             }
             else if(modo == 3){
+                this.dispose();
                 mostrarPromedioEstudiante(ServicioLocalEstudiante.getServicio().buscarEstudiante(value));
             }
         }catch (RemoteException ex) {
                 Logger.getLogger(JDialogBuscarEstudiante.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.dispose();
+        
     }//GEN-LAST:event_tablaDatosMouseClicked
 
 
@@ -194,7 +201,7 @@ public class JDialogBuscarEstudiante extends javax.swing.JFrame {
         mat.setPkEstudiante(pEst.getDocumento());
         double nota = ServicioLocalMatricula.getServicio().darPromedioEstudiante(mat);
         System.out.println(nota);
-        JOptionPane.showMessageDialog(this, "El promedio del estudiante " + pEst.getNombres() + " " + pEst.getApellidos() + "es de: " + nota);
+        JOptionPane.showMessageDialog(this, "El promedio del estudiante " + pEst.getNombres() + " " + pEst.getApellidos() + " es de: " + nota);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -6,6 +6,8 @@
 package gui;
 
 import estructural.Estudiante;
+import estructural.Materia;
+import estructural.Matricula;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -21,8 +23,8 @@ public class JDialogPanelActMatricula extends JDialog{
 
     private JLabel lbTitulo;
     
-    public JDialogPanelActMatricula(String pEstudiante, int Codigo) {
-        setSize(new Dimension(820, 500));
+    public JDialogPanelActMatricula(Estudiante pEstudiante, Matricula pMateria, JDialogBuscarMatriculaEstudiante pe) {
+        setSize(new Dimension(700, 400));
         setResizable(false);
         //setAlwaysOnTop(true);
         setLocationRelativeTo(null);
@@ -30,14 +32,14 @@ public class JDialogPanelActMatricula extends JDialog{
         //setDefaultCloseOperation(PROPERTIES);
         
         JPanel panelTitulo = new JPanel();
-        lbTitulo = new JLabel("TITULO GENERICO");
+        lbTitulo = new JLabel("ACTUALIZAR MATRICULA");
         lbTitulo.setHorizontalAlignment(JLabel.CENTER);
         lbTitulo.setForeground(GUIConstantes.COLOR_PRINCIPAL);
         lbTitulo.setFont(new Font("TAHOMA", Font.BOLD, 50));
         panelTitulo.add(lbTitulo);
         add(panelTitulo, BorderLayout.NORTH);
         
-        GUIPanelActMatricula panelActMatricula = new GUIPanelActMatricula();
+        GUIPanelActMatricula panelActMatricula = new GUIPanelActMatricula(pEstudiante, pMateria, pe);
         add(panelActMatricula, BorderLayout.CENTER);
     }
     

@@ -44,6 +44,7 @@ public class JDialogBuscarMatriculaEstudiante extends javax.swing.JFrame {
             setTitle("Ver Matriculas Estudiante");
             txtTitulo.setText("Ver Matriculas Estudiante");
             txtInfo.setVisible(false);
+            txtNota.setVisible(false);
         }else if(pModo == 1){ 
             setTitle("Borrar Matricula Estudiante");
             txtTitulo.setText("Borrar Matriculas Estudiante");
@@ -66,14 +67,15 @@ public class JDialogBuscarMatriculaEstudiante extends javax.swing.JFrame {
         btBuscarEstudiante.setVisible(!pPam);
     }
     
-    public void actualizarInformacion(Estudiante pEst){
+    public void actualizarInformacion(Estudiante pEst) throws RemoteException{
         estudiante = pEst;
         mostrarOcultarInfo(true);
         jtDoc.setText(estudiante.getDocumento());
         jtNombre.setText(estudiante.getNombres()+ " " + estudiante.getApellidos());
+        cambiarDatosTabla(0);
     }
     
-    private void cambiarDatosTabla(int pGrado) throws RemoteException{
+    public void cambiarDatosTabla(int pGrado) throws RemoteException{
         
         if(estudiante == null){
             JOptionPane.showMessageDialog(this, "¡Debes de buscar primero un estudiante para ver la información!");
@@ -95,7 +97,17 @@ public class JDialogBuscarMatriculaEstudiante extends javax.swing.JFrame {
                 fila.add(matriculas.get(i).getFechaInscripcion());
                 fila.add(matriculas.get(i).getFechaInicio());
                 fila.add(matriculas.get(i).getFechaFinal());
-                fila.add(matriculas.get(i).getEstado());
+                String inf = "";
+                if(matriculas.get(i).getEstado() == 0){
+                    inf = "Matriculada";
+                }else if(matriculas.get(i).getEstado() == 1){
+                    inf = "Cursando";
+                }else if(matriculas.get(i).getEstado() == 2){
+                    inf = "Reprobada";
+                }else if(matriculas.get(i).getEstado() == 3){
+                    inf = "Aprobada";
+                }
+                fila.add(inf);
                 modelo.addRow(fila);
             }
              repaint();
@@ -120,7 +132,7 @@ public class JDialogBuscarMatriculaEstudiante extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaDatos = new javax.swing.JTable();
         txtInfo = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        txtNota = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         txtNom = new javax.swing.JLabel();
         jtNombre = new javax.swing.JTextField();
@@ -172,8 +184,8 @@ public class JDialogBuscarMatriculaEstudiante extends javax.swing.JFrame {
 
         txtInfo.setText("Para borrar una matricula de doble clic sobre la que quiere eliminar.");
 
-        jLabel1.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel1.setText("Nota:");
+        txtNota.setForeground(new java.awt.Color(255, 0, 0));
+        txtNota.setText("Nota:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -185,7 +197,7 @@ public class JDialogBuscarMatriculaEstudiante extends javax.swing.JFrame {
                 .addGap(29, 29, 29))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(36, 36, 36)
-                .addComponent(jLabel1)
+                .addComponent(txtNota)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtInfo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -196,7 +208,7 @@ public class JDialogBuscarMatriculaEstudiante extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtInfo)
-                    .addComponent(jLabel1))
+                    .addComponent(txtNota))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -254,14 +266,43 @@ public class JDialogBuscarMatriculaEstudiante extends javax.swing.JFrame {
     private void tablaDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaDatosMouseClicked
         if(modo == 1){// Borrar
             
+            int column = 0;
+            int row = tablaDatos.getSelectedRow();
+            String value = tablaDatos.getModel().getValueAt(row, column).toString();
+            String nom = tablaDatos.getModel().getValueAt(row, 1).toString();
+            String info = "¿Seguro que desea eliminar la matricula de " + nom + " - CODIGO: "+ value;
+            int select = JOptionPane.showOptionDialog(this, info, "IMPORTANTE", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, 1);
+            if(select == 0){
+                try {
+                    int codi = Integer.parseInt(value);
+                    System.out.println(codi);
+                    ServicioLocalMatricula.getServicio().borrarMatriculaCodigo(codi);
+                    DefaultTableModel modelo = (DefaultTableModel)tablaDatos.getModel();
+                    modelo.removeRow(row);
+                    JOptionPane.showMessageDialog(this, "¡Se ha borrado el matricula correctamente!");
+                } catch (RemoteException ex) {
+                    Logger.getLogger(JDialogBuscarMatriculaEstudiante.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
         } else if(modo == 2){ //Actualizar
+            int column = 0;
+            int row = tablaDatos.getSelectedRow();
+            String value = tablaDatos.getModel().getValueAt(row, column).toString();
+            int codi = Integer.parseInt(value);
+            try {
+                JDialogPanelActMatricula panelActMatricula = new JDialogPanelActMatricula(estudiante, ServicioLocalMatricula.getServicio().darMatriculaCodigo(codi), this);
+                panelActMatricula.setVisible(true);
+                
+            } catch (RemoteException ex) {
+                Logger.getLogger(JDialogBuscarMatriculaEstudiante.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
         }
     }//GEN-LAST:event_tablaDatosMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btBuscarEstudiante;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
@@ -274,6 +315,7 @@ public class JDialogBuscarMatriculaEstudiante extends javax.swing.JFrame {
     private javax.swing.JTable tablaDatos;
     private javax.swing.JLabel txtInfo;
     private javax.swing.JLabel txtNom;
+    private javax.swing.JLabel txtNota;
     private javax.swing.JLabel txtTitulo;
     // End of variables declaration//GEN-END:variables
 }
