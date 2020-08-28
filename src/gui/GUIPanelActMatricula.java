@@ -5,13 +5,14 @@
  */
 package gui;
 
-import estructural.Estudiante;
-import estructural.Matricula;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.ServicioLocalMatricula;
+import servicioWebEstudiante.Estudiante;
+import servicioWebMatriculas.Exception_Exception;
+import servicioWebMatriculas.Matricula;
 
 /**
  *
@@ -35,7 +36,7 @@ public class GUIPanelActMatricula extends javax.swing.JPanel {
         
         padre = pe;
         estudiante = pEst;
-        jtDoc.setText(pEst.getDocumento());
+        jtDoc.setText(pEst.getDocumentoIdentificacion());
         jtEps.setText(pEst.getEps());
         jtGenero.setText((pEst.getGenero() == 1) ? "Masculino":"Femenino" );
         jtNombre.setText(pEst.getNombres() + " " + pEst.getApellidos());
@@ -163,7 +164,7 @@ public class GUIPanelActMatricula extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "¡Se actualizó la matricula correctamente!");
                 padre.cambiarDatosTabla(0);
                 
-            } catch (RemoteException ex) {
+            } catch (Exception_Exception ex) {
                 JOptionPane.showMessageDialog(this, "Ha ocurrido un error al actualizar la matricula");
             }
         }

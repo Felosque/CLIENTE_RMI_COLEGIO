@@ -5,25 +5,23 @@
  */
 package model;
 
+import servicioWebMatriculas.ServicioMatriculaSW;
+import servicioWebMatriculas.ServicioMatriculaSW_Service;
+
 /**
  *
  * @author felip
  */
 public class ServicioLocalMatricula {
     
-    private static IServicioMatricula servicioMateria;
+    private static ServicioMatriculaSW_Service service = new ServicioMatriculaSW_Service();
+    private static ServicioMatriculaSW servicioMatriculaSW = service.getServicioMatriculaSWPort();
 
     private ServicioLocalMatricula() {
     }
-    
-    public static void setServicioEstudiante(IServicioMatricula pServ){
-        if(servicioMateria == null){
-            servicioMateria = pServ;
-        }
-    }
-   
-    public static IServicioMatricula getServicio(){
-        return servicioMateria;
+
+    public static ServicioMatriculaSW getServicio(){
+        return servicioMatriculaSW;
     }
     
 }

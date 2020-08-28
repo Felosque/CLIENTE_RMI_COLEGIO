@@ -5,25 +5,23 @@
  */
 package model;
 
+import servicioWebMaterias.ServicioMateriaSW;
+import servicioWebMaterias.ServicioMateriaSW_Service;
+
 /**
  *
  * @author felip
  */
 public class ServicioLocalMateria {
     
-    private static IServicioMateria servicioMateria;
-
+    private static ServicioMateriaSW_Service servicio = new ServicioMateriaSW_Service();
+    private static ServicioMateriaSW servicioMateriaSW = servicio.getServicioMateriaSWPort();
+    
     private ServicioLocalMateria() {
     }
     
-    public static void setServicioMateria(IServicioMateria pServ){
-        if(servicioMateria == null){
-            servicioMateria = pServ;
-        }
-    }
-   
-    public static IServicioMateria getServicio(){
-        return servicioMateria;
+    public static ServicioMateriaSW getServicio(){
+        return servicioMateriaSW;
     }
     
     

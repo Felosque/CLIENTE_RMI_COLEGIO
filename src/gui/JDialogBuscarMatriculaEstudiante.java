@@ -5,8 +5,6 @@
  */
 package gui;
 
-import estructural.Estudiante;
-import estructural.Matricula;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -16,6 +14,9 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.ServicioLocalMateria;
 import model.ServicioLocalMatricula;
+import servicioWebEstudiante.Estudiante;
+import servicioWebMatriculas.Exception_Exception;
+import servicioWebMatriculas.Matricula;
 
 /**
  *
@@ -67,15 +68,15 @@ public class JDialogBuscarMatriculaEstudiante extends javax.swing.JFrame {
         btBuscarEstudiante.setVisible(!pPam);
     }
     
-    public void actualizarInformacion(Estudiante pEst) throws RemoteException{
+    public void actualizarInformacion(Estudiante pEst) throws Exception_Exception, servicioWebMaterias.Exception_Exception{
         estudiante = pEst;
         mostrarOcultarInfo(true);
-        jtDoc.setText(estudiante.getDocumento());
+        jtDoc.setText(estudiante.getDocumentoIdentificacion());
         jtNombre.setText(estudiante.getNombres()+ " " + estudiante.getApellidos());
         cambiarDatosTabla(0);
     }
     
-    public void cambiarDatosTabla(int pGrado) throws RemoteException{
+    public void cambiarDatosTabla(int pGrado) throws Exception_Exception, servicioWebMaterias.Exception_Exception{
         
         if(estudiante == null){
             JOptionPane.showMessageDialog(this, "¡Debes de buscar primero un estudiante para ver la información!");
@@ -85,9 +86,9 @@ public class JDialogBuscarMatriculaEstudiante extends javax.swing.JFrame {
             revalidate();
             
             if(pGrado != 0){
-                matriculas = ServicioLocalMatricula.getServicio().darMatriculasEstudianteGrado(estudiante.getDocumento(), pGrado);
+                matriculas = (ArrayList<Matricula>)ServicioLocalMatricula.getServicio().darMatriculasEstudianteGrado(estudiante.getDocumentoIdentificacion(), pGrado);
             }else{
-                matriculas = ServicioLocalMatricula.getServicio().darMatriculasEstudiante(estudiante.getDocumento());
+                matriculas = (ArrayList<Matricula>) ServicioLocalMatricula.getServicio().darMatriculasEstudiante(estudiante.getDocumentoIdentificacion());
             }
             for (int i = 0; i < matriculas.size(); i++) {
                 Vector fila = new Vector();
@@ -246,9 +247,12 @@ public class JDialogBuscarMatriculaEstudiante extends javax.swing.JFrame {
 
     private void jcGradoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcGradoItemStateChanged
         try {
-            System.out.println(jcGrado.getSelectedIndex());
-            cambiarDatosTabla(jcGrado.getSelectedIndex());
-        } catch (RemoteException ex) {
+            try {
+                cambiarDatosTabla(jcGrado.getSelectedIndex());
+            } catch (servicioWebMaterias.Exception_Exception ex) {
+                Logger.getLogger(JDialogBuscarMatriculaEstudiante.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (Exception_Exception ex) {
             Logger.getLogger(GUIPanelMatricula.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jcGradoItemStateChanged
@@ -280,7 +284,7 @@ public class JDialogBuscarMatriculaEstudiante extends javax.swing.JFrame {
                     DefaultTableModel modelo = (DefaultTableModel)tablaDatos.getModel();
                     modelo.removeRow(row);
                     JOptionPane.showMessageDialog(this, "¡Se ha borrado el matricula correctamente!");
-                } catch (RemoteException ex) {
+                } catch (Exception_Exception ex) {
                     Logger.getLogger(JDialogBuscarMatriculaEstudiante.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -294,7 +298,7 @@ public class JDialogBuscarMatriculaEstudiante extends javax.swing.JFrame {
                 JDialogPanelActMatricula panelActMatricula = new JDialogPanelActMatricula(estudiante, ServicioLocalMatricula.getServicio().darMatriculaCodigo(codi), this);
                 panelActMatricula.setVisible(true);
                 
-            } catch (RemoteException ex) {
+            } catch (Exception_Exception ex) {
                 Logger.getLogger(JDialogBuscarMatriculaEstudiante.class.getName()).log(Level.SEVERE, null, ex);
             }
             

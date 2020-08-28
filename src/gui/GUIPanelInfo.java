@@ -7,15 +7,17 @@ package gui;
 
 import com.toedter.calendar.JDateChooser;
 import constantes.UtilitiesFunctions;
+import static constantes.UtilitiesFunctions.dateToGregorian;
+import static constantes.UtilitiesFunctions.gregorianToDate;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import estructural.Estudiante;
 import gui.GUIConstantes.TIPO_ACCION;
 import java.awt.Color;
 import java.rmi.RemoteException;
 import java.util.Date;
+import servicioWebEstudiante.Estudiante;
 
 /**
  *
@@ -283,10 +285,10 @@ public class GUIPanelInfo extends javax.swing.JPanel implements ActionListener{
     {
         //Fecha
         estudiante = pEstudiante;
-        jdFechaNacimiento.setDate(estudiante.getFechaNacimiento());
+        jdFechaNacimiento.setDate(gregorianToDate(estudiante.getFechaNacimiento()));
         jtNombre.setText(pEstudiante.getNombres());
         jtApellido.setText(pEstudiante.getApellidos());
-        jtDNI.setText(pEstudiante.getDocumento());
+        jtDNI.setText(pEstudiante.getDocumentoIdentificacion());
         jcGenero.setSelectedIndex(pEstudiante.getGenero());
         jtEps.setText(pEstudiante.getEps());
         jtCorreo.setText(pEstudiante.getCorreo());
@@ -300,8 +302,8 @@ public class GUIPanelInfo extends javax.swing.JPanel implements ActionListener{
         try{
             estudianteCreado.setNombres(jtNombre.getText().trim());
             estudianteCreado.setApellidos(jtApellido.getText().trim());
-            estudianteCreado.setFechaNacimiento(jdFechaNacimiento.getDate());
-            estudianteCreado.setDocIdentificacion(jtDNI.getText().trim());
+            estudianteCreado.setFechaNacimiento(dateToGregorian(jdFechaNacimiento.getDate()));
+            estudianteCreado.setDocumentoIdentificacion(jtDNI.getText().trim());
             estudianteCreado.setEps(jtEps.getText().trim());
             estudianteCreado.setGenero(jcGenero.getSelectedIndex());
             estudianteCreado.setTelefono(jtTelf.getText().trim());
@@ -326,7 +328,7 @@ public class GUIPanelInfo extends javax.swing.JPanel implements ActionListener{
                 limpiarPantalla();
             }
             else if(modo == TIPO_ACCION.ACTUALIZAR){//Actualizarlo
-                guiPrincipal.actualizarEstudiante(estudiante.getDocumento(), estActual);
+                guiPrincipal.actualizarEstudiante(estudiante.getDocumentoIdentificacion(), estActual);
                 JOptionPane.showMessageDialog(this, "¡Se ha actualizado el estudiante correctamente!");
                 guiPrincipal.uiVerLista();
                 dialogoPadre.dispose();
@@ -334,7 +336,7 @@ public class GUIPanelInfo extends javax.swing.JPanel implements ActionListener{
             else if(modo == TIPO_ACCION.ELIMINAR){//Actualizarlo
                 int select = JOptionPane.showOptionDialog(this, "¿Está seguro de querer eliminar el estudiante?", "IMPORTANTE", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, 1);
                 if(select == 0){
-                    guiPrincipal.borrarEstudiante(estudiante.getDocumento());
+                    guiPrincipal.borrarEstudiante(estudiante.getDocumentoIdentificacion());
                     JOptionPane.showMessageDialog(this, "¡Se ha borrado el estudiante correctamente!");
                     guiPrincipal.uiVerLista();
                     dialogoPadre.dispose();

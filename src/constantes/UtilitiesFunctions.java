@@ -9,6 +9,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 /**
  *
@@ -77,5 +80,22 @@ public class UtilitiesFunctions {
             return false;
         }
     }
+    
+    public static XMLGregorianCalendar dateToGregorian(Date pFecha){
+        XMLGregorianCalendar fechaNacimiento = null;
+        try {
+        fechaNacimiento = DatatypeFactory.newInstance().newXMLGregorianCalendar(pFecha.toString());
+        } catch (DatatypeConfigurationException e) {
+            System.out.println("Error en la fecha! " + e);
+        }
+        return fechaNacimiento;
+    }
+    
+    public static Date gregorianToDate(XMLGregorianCalendar pFecha){
+        XMLGregorianCalendar fechaNacimiento = null;
+        Date timestamp = pFecha.toGregorianCalendar().getTime();
+        return timestamp;
+    }
+    
     
 }

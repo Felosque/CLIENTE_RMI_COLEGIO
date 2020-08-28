@@ -9,20 +9,18 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import javax.swing.JFrame;
-import estructural.Estudiante;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
-import model.IServicioEstudiante;
-import model.IServicioMateria;
-import model.IServicioMatricula;
 import model.ServicioLocalEstudiante;
-import model.ServicioLocalMateria;
 import model.ServicioLocalMatricula;
+import servicioWebEstudiante.Estudiante;
+import servicioWebEstudiante.Exception_Exception;
+import servicioWebMaterias.Materia;
+import servicioWebMatriculas.Matricula;
 
 /**
  *
@@ -42,31 +40,31 @@ public class GUIPrincipal extends JFrame implements ActionListener{
         setSize(new Dimension(500, 401));
     }
     
-    public ArrayList<Estudiante> getEstudiantes() throws RemoteException
+    public ArrayList<Estudiante> getEstudiantes() throws Exception_Exception
     {
-        return ServicioLocalEstudiante.getServicio().darEstudiantes();
+        return (ArrayList<Estudiante>) ServicioLocalEstudiante.getServicio().darEstudiantes();
     }
     
-    public Estudiante buscarEstudiante(String identificacion) throws RemoteException
+    public Estudiante buscarEstudiante(String identificacion) throws Exception_Exception
     {
-        return ServicioLocalEstudiante.getServicio().buscarEstudiante(identificacion);
+        return (Estudiante) ServicioLocalEstudiante.getServicio().buscarEstudiante(identificacion);
     }
     
-    public void registrarEstudiante(Estudiante pEstudiante) throws RemoteException
+    public void registrarEstudiante(Estudiante pEstudiante) throws Exception_Exception
     {
         ServicioLocalEstudiante.getServicio().insertarEstudiante(pEstudiante);
     }
     
-    public void actualizarEstudiante(String pDocumento, Estudiante pEstudiante) throws RemoteException
+    public void actualizarEstudiante(String pDocumento, Estudiante pEstudiante) throws Exception_Exception
     {
         try{
             ServicioLocalEstudiante.getServicio().actualizarEstudiante(pDocumento, pEstudiante);
-        }catch(RemoteException e){
-            throw new RemoteException(e.getMessage());
+        }catch(Exception_Exception e){
+            throw e;
         }
     }
     
-    public void borrarEstudiante(String pDocumento) throws RemoteException    
+    public void borrarEstudiante(String pDocumento) throws Exception_Exception    
     {
         ServicioLocalEstudiante.getServicio().eliminarEstudiante(pDocumento);
     }
@@ -210,7 +208,7 @@ public class GUIPrincipal extends JFrame implements ActionListener{
                     else{
                         JOptionPane.showMessageDialog(this, "El estudiante no se ha encontrado en la base de datos.");
                     }
-                } catch (RemoteException ex) {
+                } catch (Exception_Exception ex) {
                     
                 }
             }
@@ -229,7 +227,7 @@ public class GUIPrincipal extends JFrame implements ActionListener{
                     else{
                         JOptionPane.showMessageDialog(this, "El estudiante no se ha encontrado en la base de datos.");
                     }
-                } catch (RemoteException ex) {
+                } catch (Exception_Exception ex) {
                     
                 }
             }
@@ -245,7 +243,7 @@ public class GUIPrincipal extends JFrame implements ActionListener{
                     else{
                         JOptionPane.showMessageDialog(this, "El estudiante no se ha encontrado en la base de datos.");
                     }
-                } catch (RemoteException ex) {
+                } catch (Exception_Exception ex) {
                     
                 }
             }
@@ -286,12 +284,12 @@ public class GUIPrincipal extends JFrame implements ActionListener{
             }
         }
         else if(e.getSource() == mnGraficaMateria){
-            try {
-                JDialogGraficosMatricula dialog = new JDialogGraficosMatricula(ServicioLocalMatricula.getServicio().darMateriasPorGrado());
+            /*try {
+                JDialogGraficosMatricula dialog = new JDialogGraficosMatricula( (int[]) ServicioLocalMatricula.getServicio().darMateriasPorGrado(0));
                 dialog.setVisible(true);
-            } catch (RemoteException ex) {
+            } catch (servicioWebMaterias.Exception_Exception ex) {
                 Logger.getLogger(GUIPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            }*/
         }
         else if(e.getSource() == mnListarMatriculas){
             try {
@@ -305,7 +303,7 @@ public class GUIPrincipal extends JFrame implements ActionListener{
             try{
                 JDialogGraficos dialogoGrafica = new JDialogGraficos(ServicioLocalEstudiante.getServicio().cantidadEstudiantesPorGenero());
                 dialogoGrafica.setVisible(true);
-            } catch (RemoteException ex) {
+            } catch (Exception_Exception ex) {
                     
             }
         }

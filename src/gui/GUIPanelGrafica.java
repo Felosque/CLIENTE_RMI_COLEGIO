@@ -7,6 +7,7 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.util.List;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -27,7 +28,7 @@ public class GUIPanelGrafica extends javax.swing.JPanel {
     /**
      * Creates new form GUIPanelGrafica
      */
-    public GUIPanelGrafica(int[] cantidadGenero, int pModo) {
+    public GUIPanelGrafica(List<Integer> cantidadGenero, int pModo) {
         initComponents();
         setBackground(Color.white);
         if(pModo == 1)
@@ -38,11 +39,11 @@ public class GUIPanelGrafica extends javax.swing.JPanel {
         }
     }
 
-    public void ponerGraficaGenero(int[] cantidadGenero)
+    public void ponerGraficaGenero(List<Integer> cantidadGenero)
     {
         datos = new DefaultPieDataset();
-        datos.setValue("Hombres", cantidadGenero[0]);
-        datos.setValue("Mujeres", cantidadGenero[1]);
+        datos.setValue("Hombres", cantidadGenero.get(0));
+        datos.setValue("Mujeres", cantidadGenero.get(1));
         grafica = ChartFactory.createPieChart("Estudiantes por género", datos, true, true, false);
         ChartPanel chartPanel = new ChartPanel(grafica);
         chartPanel.setSize(new Dimension(600, 400));
@@ -50,14 +51,14 @@ public class GUIPanelGrafica extends javax.swing.JPanel {
         this.setSize(chartPanel.getSize());
     }
     
-    public void ponerGraficaMateriasPorGrado(int[] cantidadGenero){
+    public void ponerGraficaMateriasPorGrado(List<Integer> cantidadGenero){
         
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         
         String grado = "Grado";
         for (int i = 0; i < 11; i++) {
             int d = i + 1;
-            dataset.addValue(cantidadGenero[i], grado, ""+d);
+            dataset.addValue(cantidadGenero.get(i), grado, ""+d);
         }
         grafica = ChartFactory.createBarChart( "Materias por grado", "Grados", "Materias",            
          dataset,          
