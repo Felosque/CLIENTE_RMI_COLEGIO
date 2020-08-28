@@ -327,7 +327,7 @@ public class GUIPrincipal extends JFrame implements ActionListener{
     public static void main(String arg[]){
         try{
             //Servicio junto con singleton
-            IServicioEstudiante modelEstudiante = (IServicioEstudiante)Naming.lookup("//127.0.0.1/ServicioEstudiante");
+            /*IServicioEstudiante modelEstudiante = (IServicioEstudiante)Naming.lookup("//127.0.0.1/ServicioEstudiante");
             ServicioLocalEstudiante.setServicioEstudiante(modelEstudiante);
             
             IServicioMateria modelMateria = (IServicioMateria)Naming.lookup("//127.0.0.1/ServicioMateria");
@@ -335,6 +335,7 @@ public class GUIPrincipal extends JFrame implements ActionListener{
             
             IServicioMatricula modelMatricula = (IServicioMatricula)Naming.lookup("//127.0.0.1/ServicioMatricula");
             ServicioLocalMatricula.setServicioEstudiante(modelMatricula);
+            */
             
             GUIPrincipal ven = new GUIPrincipal();
             ven.setTitle("Gestión estudiantil");

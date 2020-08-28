@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+        *** GENERATED FROM jax-ws.xml - DO NOT EDIT !                             ***
+        *** TO MODIFY wsimport options USE Web Service node -> Edit WS Attributes ***
+        *** TO CHANGE TARGETS GENERATED TO jaxws-build.xml COPY THOSE             ***
+        *** TARGETS TO ../build.xml AND MODIFY THAT FILE INSTEAD                  ***
+
+        --><project xmlns:xalan="http://xml.apache.org/xslt" xmlns:j2seproject3="http://www.netbeans.org/ns/j2se-project/3" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
+    <!--
+                ===================
+                JAX-WS WSIMPORT SECTION
+                ===================
+            -->
+    <target name="wsimport-init" depends="init">
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+            <classpath path="${libs.jaxws21.classpath}"/>
+        </taskdef>
+    </target>
+    <target name="wsimport-client-ServicioEstudianteSWPort" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/ServicioEstudianteSWPort"/>
+        <property name="wsdl-ServicioEstudianteSWPort" location="xml-resources/web-service-references/ServicioEstudianteSWPort/wsdl/192.168.16.12_7101/AppServidorColegioSW-ProyectoServidorColegioSW-context-root/ServicioEstudianteSWPort.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/ServicioEstudianteSWPort" destdir="${build.generated.dir}/jax-wsCache/ServicioEstudianteSWPort" wsdl="${wsdl-ServicioEstudianteSWPort}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://192.168.16.12:7101/AppServidorColegioSW-ProyectoServidorColegioSW-context-root/ServicioEstudianteSWPort?WSDL" xnocompile="true" xendorsed="true" package="servicioWebEstudiante">
+            <depends file="${wsdl-ServicioEstudianteSWPort}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/ServicioEstudianteSWPort"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/ServicioEstudianteSWPort">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-ServicioEstudianteSWPort" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/ServicioEstudianteSWPort"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/servicioWebEstudiante"/>
+    </target>
+    <target name="wsimport-client-ServicioMateriaSWPort" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/ServicioMateriaSWPort"/>
+        <property name="wsdl-ServicioMateriaSWPort" location="xml-resources/web-service-references/ServicioMateriaSWPort/wsdl/192.168.16.12_7101/AppServidorColegioSW-ProyectoServidorColegioSW-context-root/ServicioMateriaSWPort.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/ServicioMateriaSWPort" destdir="${build.generated.dir}/jax-wsCache/ServicioMateriaSWPort" wsdl="${wsdl-ServicioMateriaSWPort}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://192.168.16.12:7101/AppServidorColegioSW-ProyectoServidorColegioSW-context-root/ServicioMateriaSWPort?WSDL" xnocompile="true" xendorsed="true" package="servicioWebMaterias">
+            <depends file="${wsdl-ServicioMateriaSWPort}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/ServicioMateriaSWPort"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/ServicioMateriaSWPort">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-ServicioMateriaSWPort" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/ServicioMateriaSWPort"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/servicioWebMaterias"/>
+    </target>
+    <target name="wsimport-client-ServicioMatriculaSWPort" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/ServicioMatriculaSWPort"/>
+        <property name="wsdl-ServicioMatriculaSWPort" location="xml-resources/web-service-references/ServicioMatriculaSWPort/wsdl/192.168.16.12_7101/AppServidorColegioSW-ProyectoServidorColegioSW-context-root/ServicioMatriculaSWPort.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/ServicioMatriculaSWPort" destdir="${build.generated.dir}/jax-wsCache/ServicioMatriculaSWPort" wsdl="${wsdl-ServicioMatriculaSWPort}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://192.168.16.12:7101/AppServidorColegioSW-ProyectoServidorColegioSW-context-root/ServicioMatriculaSWPort?WSDL" xnocompile="true" xendorsed="true" package="servicioWebMatriculas">
+            <depends file="${wsdl-ServicioMatriculaSWPort}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/ServicioMatriculaSWPort"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/ServicioMatriculaSWPort">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-ServicioMatriculaSWPort" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/ServicioMatriculaSWPort"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/servicioWebMatriculas"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-ServicioEstudianteSWPort, wsimport-client-ServicioMateriaSWPort, wsimport-client-ServicioMatriculaSWPort"/>
+</project>

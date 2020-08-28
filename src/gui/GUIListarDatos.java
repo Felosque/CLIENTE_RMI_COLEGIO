@@ -12,10 +12,9 @@ import java.util.Vector;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import estructural.Estudiante;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.rmi.RemoteException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
@@ -26,8 +25,10 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import model.ServicioLocalEstudiante;
-import model.ServicioLocalMateria;
-import model.ServicioLocalMatricula;
+import servicioWebEstudiante.Estudiante;
+import servicioWebEstudiante.Exception_Exception;
+import servicioWebEstudiante.ServicioEstudianteSW;
+import servicioWebEstudiante.ServicioEstudianteSW_Service;
 
 /**
  *
@@ -43,10 +44,10 @@ public class GUIListarDatos extends JPanel implements KeyListener{
     
     private JTable tabla;
     
-    public GUIListarDatos(GUIPrincipal gui)  throws RemoteException{
+    public GUIListarDatos(GUIPrincipal gui){
         
         this.principal = gui;
-        crearTabla(principal.getEstudiantes());
+        crearTabla(new ArrayList<>());
         setBorder(BorderFactory.createTitledBorder(""));
         //this.setBackground(new Color(0, 0, 0));
         setLayout(null);
@@ -57,7 +58,7 @@ public class GUIListarDatos extends JPanel implements KeyListener{
         add(busqueda);
     }
     
-    public void crearTabla(ArrayList<Estudiante> est)
+    public void crearTabla(List<Estudiante> est)
     {
         Vector columnas = new Vector();
         columnas.add("Documento");
@@ -74,11 +75,11 @@ public class GUIListarDatos extends JPanel implements KeyListener{
         
         for (int i = 0; i < est.size(); i++) {
             Vector fila = new Vector();
-            fila.add(est.get(i).getDocumento());
+            fila.add(est.get(i).getDocumentoIdentificacion());
             fila.add(est.get(i).getNombres());
             fila.add(est.get(i).getApellidos());
             fila.add((est.get(i).getGenero() == 0) ?"Masculino":"Femenino");
-            fila.add(UtilitiesFunctions.darDiaMesAnoToString(est.get(i).getFechaNacimiento()));
+            fila.add(est.get(i).getFechaNacimiento());
             fila.add((est.get(i).getCorreo().trim().isEmpty()) ?"NO REGISTRADO":""+est.get(i).getCorreo());
             fila.add(est.get(i).getDireccion());
             fila.add(est.get(i).getTelefono());
@@ -105,18 +106,18 @@ public class GUIListarDatos extends JPanel implements KeyListener{
         
     }
     
-    private void cambiarDatosTabla(ArrayList<Estudiante> estudiantes) throws RemoteException{
+    private void cambiarDatosTabla(ArrayList<Estudiante> estudiantes){
         DefaultTableModel modelo = (DefaultTableModel)tabla.getModel();
         modelo.getDataVector().removeAllElements();
         revalidate();
         
         for (int i = 0; i < estudiantes.size(); i++) {
             Vector fila = new Vector();
-            fila.add(estudiantes.get(i).getDocumento());
+            fila.add(estudiantes.get(i).getDocumentoIdentificacion());
             fila.add(estudiantes.get(i).getNombres());
             fila.add(estudiantes.get(i).getApellidos());
             fila.add((estudiantes.get(i).getGenero() == 0) ?"Masculino":"Femenino");
-            fila.add(UtilitiesFunctions.darDiaMesAnoToString(estudiantes.get(i).getFechaNacimiento()));
+            fila.add(estudiantes.get(i).getFechaNacimiento());
             fila.add((estudiantes.get(i).getCorreo().trim().isEmpty()) ?"NO REGISTRADO":""+estudiantes.get(i).getCorreo());
             fila.add(estudiantes.get(i).getDireccion());
             fila.add(estudiantes.get(i).getTelefono());
@@ -139,8 +140,15 @@ public class GUIListarDatos extends JPanel implements KeyListener{
     @Override
     public void keyReleased(KeyEvent e) {
         try {
-            cambiarDatosTabla(ServicioLocalEstudiante.getServicio().darEstudiantesPorNombre(busqueda.getText()));
-        } catch (RemoteException ex) {
+            
+            List<Estudiante> est = new ArrayList<Estudiante>();
+            try {
+                est = ServicioLocalEstudiante.getServicio().darEstudiantes();
+            } catch (Exception_Exception ex) {
+                Logger.getLogger(GUIListarDatos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            cambiarDatosTabla((ArrayList<Estudiante>) est);
+        } catch (Exception ex) {
             Logger.getLogger(GUIListarDatos.class.getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println(busqueda.getText());
