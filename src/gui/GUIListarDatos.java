@@ -143,7 +143,7 @@ public class GUIListarDatos extends JPanel implements KeyListener{
             
             List<Estudiante> est = new ArrayList<Estudiante>();
             try {
-                est = ServicioLocalEstudiante.getServicio().darEstudiantes();
+                est = ServicioLocalEstudiante.getServicio().darEstudiantesPorNombre(busqueda.getText());
             } catch (Exception_Exception ex) {
                 Logger.getLogger(GUIListarDatos.class.getName()).log(Level.SEVERE, null, ex);
             }
