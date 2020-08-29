@@ -7,6 +7,9 @@ package constantes;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -82,17 +85,17 @@ public class UtilitiesFunctions {
     }
     
     public static XMLGregorianCalendar dateToGregorian(Date pFecha){
-        XMLGregorianCalendar fechaNacimiento = null;
         try {
-        fechaNacimiento = DatatypeFactory.newInstance().newXMLGregorianCalendar(pFecha.toString());
-        } catch (DatatypeConfigurationException e) {
-            System.out.println("Error en la fecha! " + e);
+            GregorianCalendar calendar = new GregorianCalendar();
+            calendar.setTime(pFecha);
+            return DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
+        } catch (DatatypeConfigurationException ex) {
+            Logger.getLogger(UtilitiesFunctions.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return fechaNacimiento;
+        return null;
     }
     
     public static Date gregorianToDate(XMLGregorianCalendar pFecha){
-        XMLGregorianCalendar fechaNacimiento = null;
         Date timestamp = pFecha.toGregorianCalendar().getTime();
         return timestamp;
     }

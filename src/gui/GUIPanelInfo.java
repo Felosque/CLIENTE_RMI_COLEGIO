@@ -343,10 +343,10 @@ public class GUIPanelInfo extends javax.swing.JPanel implements ActionListener{
                 }
             }
             
-        } catch(RemoteException er){
-            JOptionPane.showMessageDialog(this, er.getLocalizedMessage(), "ATENCIÓN", JOptionPane.ERROR_MESSAGE);
         } catch(Exception ex){
+            
             JOptionPane.showMessageDialog(this, ex.getMessage(), "ATENCIÓN", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
         } 
 
     }

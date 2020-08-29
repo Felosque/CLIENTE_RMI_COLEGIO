@@ -7,9 +7,7 @@ package gui;
 
 import com.toedter.calendar.JDateChooser;
 import constantes.UtilitiesFunctions;
-import estructural.Estudiante;
-import estructural.Materia;
-import estructural.Matricula;
+import static constantes.UtilitiesFunctions.dateToGregorian;
 import java.awt.Color;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -23,6 +21,10 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.ServicioLocalMateria;
 import model.ServicioLocalMatricula;
+import servicioWebEstudiante.Estudiante;
+import servicioWebMaterias.Exception_Exception;
+import servicioWebMaterias.Materia;
+import servicioWebMatriculas.Matricula;
 
 /**
  *
@@ -75,12 +77,12 @@ public class GUIPanelMatricula extends javax.swing.JPanel {
     public void actualizarInformacion(Estudiante pEst){
         estudiante = pEst;
         jtNombre.setText(estudiante.getNombres()+ " " + estudiante.getApellidos() );
-        jtDoc.setText(estudiante.getDocumento());
+        jtDoc.setText(estudiante.getDocumentoIdentificacion());
         jtGenero.setText((estudiante.getGenero() == 1) ? "Femenino":"Masculino");
         mostrarOcultarEstudiante(true);
     }
     
-    private void cambiarDatosTabla(int pGrado) throws RemoteException{
+    private void cambiarDatosTabla(int pGrado) throws Exception_Exception{
         
         if(estudiante == null) { 
             JOptionPane.showMessageDialog(this, "¡Debe seleccionar primero un estudiante para matricularlo!");
@@ -91,7 +93,7 @@ public class GUIPanelMatricula extends javax.swing.JPanel {
             modelo.getDataVector().removeAllElements();
             revalidate();
 
-            materias = ServicioLocalMateria.getServicio().darMateriasPorGrado(pGrado);
+            materias = (ArrayList<Materia>) ServicioLocalMateria.getServicio().darMateriasPorGrado(pGrado);
 
             for (int i = 0; i < materias.size(); i++) {
                 Vector fila = new Vector();
@@ -230,7 +232,7 @@ public class GUIPanelMatricula extends javax.swing.JPanel {
                 System.out.println(jcGrados.getSelectedIndex());
                 cambiarDatosTabla(jcGrados.getSelectedIndex());
             }
-        } catch (RemoteException ex) {
+        } catch (Exception_Exception ex) {
             Logger.getLogger(GUIPanelMatricula.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jcGradosItemStateChanged
@@ -244,10 +246,19 @@ public class GUIPanelMatricula extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Debes seleccionar el grado de matricula primero.");
         }else {
             for (int i = 0; i < materias.size(); i++) {
-                Matricula matricula = new Matricula(0, estudiante.getDocumento(), materias.get(i).getCodigo(), new Date(), jdFechaInicio.getDate(), jdFechaFin.getDate(), 0.0, 1);
+                Matricula matricula = new Matricula();
+                matricula.setCodigo(0);
+                matricula.setPkEstudiante(estudiante.getDocumentoIdentificacion());
+                matricula.setPkMateria(materias.get(i).getCodigo());
+                matricula.setFechaInscripcion(dateToGregorian(new Date()));
+                matricula.setFechaInicio(dateToGregorian(jdFechaInicio.getDate()));
+                matricula.setFechaFinal(dateToGregorian(jdFechaFin.getDate()));
+                matricula.setEstado(1);
+                matricula.setNotaDefinitiva(0.0);
+                
                 try {
                     ServicioLocalMatricula.getServicio().matricularEstudiante(matricula);
-                } catch (RemoteException ex) {
+                } catch (servicioWebMatriculas.Exception_Exception ex) {
                     JOptionPane.showMessageDialog(this, "Ocurrió un error al intentar matricular la materia: " + materias.get(i).getNombre());
                 }
             }

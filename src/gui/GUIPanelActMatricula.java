@@ -162,7 +162,11 @@ public class GUIPanelActMatricula extends javax.swing.JPanel {
             try {
                 ServicioLocalMatricula.getServicio().actualizarMatricula(matricula);
                 JOptionPane.showMessageDialog(this, "¡Se actualizó la matricula correctamente!");
-                padre.cambiarDatosTabla(0);
+                try {
+                    padre.cambiarDatosTabla(0);
+                } catch (servicioWebMaterias.Exception_Exception ex) {
+                    Logger.getLogger(GUIPanelActMatricula.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 
             } catch (Exception_Exception ex) {
                 JOptionPane.showMessageDialog(this, "Ha ocurrido un error al actualizar la matricula");

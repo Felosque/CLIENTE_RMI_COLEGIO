@@ -295,7 +295,7 @@ public class GUIPrincipal extends JFrame implements ActionListener{
             try {
                 JDialogListarMatriculasTodas dialog = new JDialogListarMatriculasTodas();
                 dialog.setVisible(true);
-            } catch (RemoteException ex) {
+            } catch (servicioWebMatriculas.Exception_Exception ex) {
                 Logger.getLogger(GUIPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -324,17 +324,6 @@ public class GUIPrincipal extends JFrame implements ActionListener{
     
     public static void main(String arg[]){
         try{
-            //Servicio junto con singleton
-            /*IServicioEstudiante modelEstudiante = (IServicioEstudiante)Naming.lookup("//127.0.0.1/ServicioEstudiante");
-            ServicioLocalEstudiante.setServicioEstudiante(modelEstudiante);
-            
-            IServicioMateria modelMateria = (IServicioMateria)Naming.lookup("//127.0.0.1/ServicioMateria");
-            ServicioLocalMateria.setServicioMateria(modelMateria);
-            
-            IServicioMatricula modelMatricula = (IServicioMatricula)Naming.lookup("//127.0.0.1/ServicioMatricula");
-            ServicioLocalMatricula.setServicioEstudiante(modelMatricula);
-            */
-            
             GUIPrincipal ven = new GUIPrincipal();
             ven.setTitle("Gestión estudiantil");
             ven.setVisible(true);

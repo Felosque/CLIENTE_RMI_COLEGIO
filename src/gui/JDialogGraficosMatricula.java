@@ -7,6 +7,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.util.List;
 import javax.swing.JDialog;
 
 /**
@@ -15,7 +16,7 @@ import javax.swing.JDialog;
  */
 public class JDialogGraficosMatricula extends JDialog {
 
-    public JDialogGraficosMatricula(int[] datin) {
+    public JDialogGraficosMatricula(List<Integer> datin) {
          
         setResizable(false);
         setLocationRelativeTo(null);

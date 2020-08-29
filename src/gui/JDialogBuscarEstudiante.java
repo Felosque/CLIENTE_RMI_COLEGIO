@@ -5,8 +5,6 @@
  */
 package gui;
 
-import estructural.Estudiante;
-import estructural.Matricula;
 import java.awt.Dimension;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -19,6 +17,9 @@ import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import model.ServicioLocalEstudiante;
 import model.ServicioLocalMatricula;
+import servicioWebEstudiante.Estudiante;
+import servicioWebEstudiante.Exception_Exception;
+import servicioWebMatriculas.Matricula;
 
 /**
  *
@@ -35,34 +36,38 @@ public class JDialogBuscarEstudiante extends javax.swing.JFrame {
      */
     
     public JDialogBuscarEstudiante(JPanel pPadre,  int pModo) throws RemoteException {
-        padre = pPadre;
-        modo = pModo;
-        initComponents();
-        if(pModo == 3) {
-            setTitle("Promedio Estudiante");
-        }else{
-            setTitle("Buscar Estudiante");
+        try {
+            padre = pPadre;
+            modo = pModo;
+            initComponents();
+            if(pModo == 3) {
+                setTitle("Promedio Estudiante");
+            }else{
+                setTitle("Buscar Estudiante");
+            }
+            setLocationRelativeTo(null);
+            setSize(new Dimension(390, 530));
+            
+            cambiarDatosTabla(1);
+        } catch (Exception_Exception ex) {
+            Logger.getLogger(JDialogBuscarEstudiante.class.getName()).log(Level.SEVERE, null, ex);
         }
-        setLocationRelativeTo(null);
-        setSize(new Dimension(390, 530));
-        
-        cambiarDatosTabla(1);
     }
     
     public void ponerPadreFrame(JFrame pd){
         padre2 = pd;
     }
     
-    private void cambiarDatosTabla(int pModo) throws RemoteException{
+    private void cambiarDatosTabla(int pModo) throws  Exception_Exception{
         DefaultTableModel modelo = (DefaultTableModel)tablaDatos.getModel();
         modelo.getDataVector().removeAllElements();
         revalidate();
         
-        estudiantes = ServicioLocalEstudiante.getServicio().darEstudiantesPorNombre(txtFilto.getText());
+        estudiantes = (ArrayList<Estudiante>) ServicioLocalEstudiante.getServicio().darEstudiantesPorNombre(txtFilto.getText());
         
         for (int i = 0; i < estudiantes.size(); i++) {
             Vector fila = new Vector();
-            fila.add(estudiantes.get(i).getDocumento());
+            fila.add(estudiantes.get(i).getDocumentoIdentificacion());
             fila.add(estudiantes.get(i).getNombres() + " " + estudiantes.get(i).getApellidos());
             modelo.addRow(fila);
         }
@@ -165,7 +170,7 @@ public class JDialogBuscarEstudiante extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             cambiarDatosTabla(0);
-        } catch (RemoteException ex) {
+        } catch (Exception_Exception ex) {
             JOptionPane.showMessageDialog(this, "No hay registros con ese nombre en la base de datos.");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -188,18 +193,27 @@ public class JDialogBuscarEstudiante extends javax.swing.JFrame {
                 this.dispose();
                 mostrarPromedioEstudiante(ServicioLocalEstudiante.getServicio().buscarEstudiante(value));
             }
-        }catch (RemoteException ex) {
+        }catch (servicioWebEstudiante.Exception_Exception ex) {
                 Logger.getLogger(JDialogBuscarEstudiante.class.getName()).log(Level.SEVERE, null, ex);
+        }catch (servicioWebMatriculas.Exception_Exception ex) {
+            Logger.getLogger(JDialogBuscarEstudiante.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (servicioWebMaterias.Exception_Exception ex) {
+            Logger.getLogger(JDialogBuscarEstudiante.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }//GEN-LAST:event_tablaDatosMouseClicked
 
 
-    public void mostrarPromedioEstudiante(Estudiante pEst) throws RemoteException{
+    public void mostrarPromedioEstudiante(Estudiante pEst) throws Exception_Exception{
         System.out.println("Entré");
         Matricula mat = new Matricula(); 
-        mat.setPkEstudiante(pEst.getDocumento());
-        double nota = ServicioLocalMatricula.getServicio().darPromedioEstudiante(mat);
+        mat.setPkEstudiante(pEst.getDocumentoIdentificacion());
+        double nota = 0.0;
+        try {
+            nota = ServicioLocalMatricula.getServicio().darPromedioEstudiante(mat);
+        } catch (servicioWebMatriculas.Exception_Exception ex) {
+            Logger.getLogger(JDialogBuscarEstudiante.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.out.println(nota);
         JOptionPane.showMessageDialog(this, "El promedio del estudiante " + pEst.getNombres() + " " + pEst.getApellidos() + " es de: " + nota);
     }
