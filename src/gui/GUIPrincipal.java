@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 import model.ServicioLocalEstudiante;
+import model.ServicioLocalExtra;
 import model.ServicioLocalMatricula;
 import servicioWebEstudiante.Estudiante;
 import servicioWebEstudiante.Exception_Exception;
@@ -284,12 +285,12 @@ public class GUIPrincipal extends JFrame implements ActionListener{
             }
         }
         else if(e.getSource() == mnGraficaMateria){
-            /*try {
-                JDialogGraficosMatricula dialog = new JDialogGraficosMatricula( (int[]) ServicioLocalMatricula.getServicio().darMateriasPorGrado(0));
+            try {
+                JDialogGraficosMatricula dialog = new JDialogGraficosMatricula( ServicioLocalExtra.getServicio().darCantidadMateriasPorGradoCursando());
                 dialog.setVisible(true);
-            } catch (servicioWebMaterias.Exception_Exception ex) {
+            } catch (servicioWebExtra.Exception_Exception ex) {
                 Logger.getLogger(GUIPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }*/
+            }
         }
         else if(e.getSource() == mnListarMatriculas){
             try {

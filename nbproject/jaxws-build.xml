@@ -67,5 +67,22 @@
         <delete dir="${build.generated.dir}/jax-wsCache/ServicioMatriculaSWPort"/>
         <delete dir="${build.generated.sources.dir}/jax-ws/servicioWebMatriculas"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-ServicioEstudianteSWPort, wsimport-client-ServicioMateriaSWPort, wsimport-client-ServicioMatriculaSWPort"/>
+    <target name="wsimport-client-ServiciosExtraSWPort" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/ServiciosExtraSWPort"/>
+        <property name="wsdl-ServiciosExtraSWPort" location="xml-resources/web-service-references/ServiciosExtraSWPort/wsdl/192.168.16.12_7101/AppServidorColegioSW-ProyectoServidorColegioSW-context-root/ServiciosExtraSWPort.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/ServiciosExtraSWPort" destdir="${build.generated.dir}/jax-wsCache/ServiciosExtraSWPort" wsdl="${wsdl-ServiciosExtraSWPort}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://192.168.16.12:7101/AppServidorColegioSW-ProyectoServidorColegioSW-context-root/ServiciosExtraSWPort?WSDL" xnocompile="true" xendorsed="true" package="servicioWebExtra">
+            <depends file="${wsdl-ServiciosExtraSWPort}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/ServiciosExtraSWPort"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/ServiciosExtraSWPort">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-ServiciosExtraSWPort" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/ServiciosExtraSWPort"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/servicioWebExtra"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-ServicioEstudianteSWPort, wsimport-client-ServicioMateriaSWPort, wsimport-client-ServicioMatriculaSWPort, wsimport-client-ServiciosExtraSWPort"/>
 </project>

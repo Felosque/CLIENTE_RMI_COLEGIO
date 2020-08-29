@@ -6,4 +6,6 @@
     <system systemId="http://192.168.16.12:7101/AppServidorColegioSW-ProyectoServidorColegioSW-context-root/ServicioMateriaSWPort?xsd=1" uri="wsdl/192.168.16.12_7101/AppServidorColegioSW-ProyectoServidorColegioSW-context-root/ServicioMateriaSWPort.xsd_1.xsd"/>
     <system systemId="http://192.168.16.12:7101/AppServidorColegioSW-ProyectoServidorColegioSW-context-root/ServicioMatriculaSWPort?WSDL" uri="wsdl/192.168.16.12_7101/AppServidorColegioSW-ProyectoServidorColegioSW-context-root/ServicioMatriculaSWPort.wsdl"/>
     <system systemId="http://192.168.16.12:7101/AppServidorColegioSW-ProyectoServidorColegioSW-context-root/ServicioMatriculaSWPort?xsd=1" uri="wsdl/192.168.16.12_7101/AppServidorColegioSW-ProyectoServidorColegioSW-context-root/ServicioMatriculaSWPort.xsd_1.xsd"/>
+    <system systemId="http://192.168.16.12:7101/AppServidorColegioSW-ProyectoServidorColegioSW-context-root/ServiciosExtraSWPort?WSDL" uri="wsdl/192.168.16.12_7101/AppServidorColegioSW-ProyectoServidorColegioSW-context-root/ServiciosExtraSWPort.wsdl"/>
+    <system systemId="http://192.168.16.12:7101/AppServidorColegioSW-ProyectoServidorColegioSW-context-root/ServiciosExtraSWPort?xsd=1" uri="wsdl/192.168.16.12_7101/AppServidorColegioSW-ProyectoServidorColegioSW-context-root/ServiciosExtraSWPort.xsd_1.xsd"/>
 </catalog>
