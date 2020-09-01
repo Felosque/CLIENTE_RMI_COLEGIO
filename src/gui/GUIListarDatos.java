@@ -47,7 +47,11 @@ public class GUIListarDatos extends JPanel implements KeyListener{
     public GUIListarDatos(GUIPrincipal gui){
         
         this.principal = gui;
-        crearTabla(new ArrayList<>());
+        try {
+            crearTabla(ServicioLocalEstudiante.getServicio().darEstudiantes());
+        } catch (Exception_Exception ex) {
+            Logger.getLogger(GUIListarDatos.class.getName()).log(Level.SEVERE, null, ex);
+        }
         setBorder(BorderFactory.createTitledBorder(""));
         //this.setBackground(new Color(0, 0, 0));
         setLayout(null);

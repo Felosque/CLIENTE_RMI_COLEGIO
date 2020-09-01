@@ -127,7 +127,7 @@ public class JDialogBuscarMatriculaEstudiante extends javax.swing.JFrame {
 
         txtTitulo = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jcGrado = new javax.swing.JComboBox<>();
+        jcGrado = new javax.swing.JComboBox<String>();
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -153,7 +153,7 @@ public class JDialogBuscarMatriculaEstudiante extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtro"));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jcGrado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TODOS", "Primero", "Segundo", "Tercero", "Cuarto", "Quinto", "Sexto", "Septimo", "Octavo", "Noveno", "Decimo", "Once" }));
+        jcGrado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "TODOS", "Primero", "Segundo", "Tercero", "Cuarto", "Quinto", "Sexto", "Septimo", "Octavo", "Noveno", "Decimo", "Once" }));
         jcGrado.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jcGradoItemStateChanged(evt);
